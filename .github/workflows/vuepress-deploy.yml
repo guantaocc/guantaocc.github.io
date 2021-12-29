@@ -8,7 +8,7 @@ jobs:
       uses: actions/checkout@master
 
     - name: vuepress-deploy
-      uses: guantaocc/vuepress-deploy@master
+      uses: guantaocc/guantaocc.github.io@master
       env:
         ACCESS_TOKEN: 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
         TARGET_REPO: guantaocc/guantaocc.github.io
