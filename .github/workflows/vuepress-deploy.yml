@@ -1,0 +1,17 @@
+name: Build and Deploy
+on: [push]
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+
+    - name: vuepress-deploy
+      uses: guantaocc/vuepress-deploy@master
+      env:
+        ACCESS_TOKEN: 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
+        TARGET_REPO: guantaocc/guantaocc.github.io
+        TARGET_BRANCH: gh-pages
+        BUILD_SCRIPT: yarn && yarn build
+        BUILD_DIR: docs/.vuepress/dist
