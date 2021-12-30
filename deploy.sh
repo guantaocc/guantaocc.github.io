@@ -3,6 +3,16 @@
 # 确保脚本抛出遇到的错误
 set -e
 
+# 将当前master分支提交
+git init
+git add .
+git commit -m 'update blog master'
+git branch -M master
+git remote add origin git@github.com:guantaocc/guantaocc.github.io.git
+git push origin master
+
+
+# gh-pages部署
 # 生成静态文件
 npm run build
 
