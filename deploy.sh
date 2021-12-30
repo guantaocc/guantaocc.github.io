@@ -16,8 +16,10 @@ git init
 git add -A
 git commit -m 'deploy'
 
+git branch -M gh-pages
+git remote add origin git@github.com:guantaocc/guantaocc.github.io.git
 # 如果发布到 https://<USERNAME>.github.io
-git push -f git@github.com:guantaocc/guantaocc.github.io.git gh-pages
+git push -f origin gh-pages
 
 # 如果发布到 https://<USERNAME>.github.io/<REPO>
 # git push -f git@github.com:<USERNAME>/<REPO>.git master:gh-pages
