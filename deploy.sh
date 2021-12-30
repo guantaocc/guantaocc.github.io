@@ -4,7 +4,6 @@
 set -e
 
 # 将当前master分支提交
-git init
 git add .
 git commit -m 'update blog master'
 git branch -M master
