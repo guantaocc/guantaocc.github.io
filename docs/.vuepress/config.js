@@ -41,6 +41,11 @@ module.exports = {
           { text: '前端开发', link: '/软件开发/前端笔记/01-HTML-超文本标记语言' },
         ]
       },
+      {
+        text: '算法', icon: 'reco-document', items: [
+          { text: '经典排序算法', link: '/算法/经典排序算法/01-冒泡排序' },
+        ]
+      },
     ],
     // 博客配置
     blogConfig: {
