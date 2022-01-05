@@ -5,6 +5,7 @@ module.exports = {
   ],
   markdown: {
     // markdown-it-anchor 的选项
+    lineNumbers: true,
     anchor: { permalink: false },
     // markdown-it-toc 的选项
     toc: { includeLevel: [1, 2] },
