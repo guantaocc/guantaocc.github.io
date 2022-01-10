@@ -7,6 +7,7 @@ tags:
   - webpack
   - vue-cli
   - lerna
+  - 脚手架
 ---
 
 ## vue-cli目录
