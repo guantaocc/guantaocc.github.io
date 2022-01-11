@@ -260,12 +260,17 @@ module.exports = class Creator extends EventEmitter {
     // clone before mutating: 深拷贝预设选项
     preset = cloneDeep(preset)
 
-    // inject core service: vue-cli service命令逻辑，集成开发服务器webpack-dev-server
+    // inject core service: 
+    // vue-cli service命令逻辑，集成webpack配置
+    // 本地.env文件
+    // 合并 vue.config.js配置
     preset.plugins['@vue/cli-service'] = Object.assign({
       projectName: name
     }, preset)
 
-    // legacy support for router: 如果选择router则集成router
+
+    // legacy support for router:
+    //  如果选择router则集成router
     if (preset.router) {
       preset.plugins['@vue/cli-plugin-router'] = {}
       // 如果选择了路由模式
@@ -448,3 +453,97 @@ const defaultConfigTransforms = {
   })
 }
 ```
+
+## 创建项目的模板文件是怎么生成的
+
+  模板文件生成和插件管理的逻辑集成在 Generator (packages/@vue/cli/lib/Generator.js)类中, 其中解析了并引入遍历 plugins
+
+  引入插件的代码都为一个函数，在Generator中执行了引入的
+
+
+packages/@vue/cli-plugin-router/index.js
+```js
+// @param api: 为Gererator函数实例上下文
+module.exports = (api, options = {}, rootOptions = {}) => {
+  // ...
+  api.injectImports(api.entryFile, `import router from './router'`)
+
+  // ... 等类方法调用
+}
+```
+packages/@vue/cli-plugin-router/template/App.vue
+
+```js
+// template放置了模板文件, 并注入了变量
+---
+extend: '@vue/cli-service/generator/template/src/App.vue'
+replace:
+  - !!js/regexp /<template>[^]*?<\/template>/
+  - !!js/regexp /\n<script>[^]*?<\/script>\n/
+  - !!js/regexp /  margin-top[^]*?<\/style>/
+---
+
+<%# REPLACE %>
+<template>
+  <div id="app">
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </nav>
+    <router-view/>
+  </div>
+</template>
+<%# END_REPLACE %>
+
+<%# REPLACE %>
+<%# END_REPLACE %>
+
+<%# REPLACE %>
+}
+
+<%_ if (rootOptions.cssPreprocessor !== 'stylus') { _%>
+  <%_ if (!rootOptions.cssPreprocessor) { _%>
+nav {
+  padding: 30px;
+}
+
+nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+nav a.router-link-exact-active {
+  color: #42b983;
+}
+  <%_ } else { _%>
+nav {
+  padding: 30px;
+
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
+}
+  <%_ } _%>
+<%_ } else { _%>
+nav
+  padding 30px
+  a
+    font-weight bold
+    color #2c3e50
+    &.router-link-exact-active
+      color #42b983
+<%_ } _%>
+</style>
+<%# END_REPLACE %>
+
+```
+
+## 值得学习的一些思想和工作方法的封装
+
+
+
