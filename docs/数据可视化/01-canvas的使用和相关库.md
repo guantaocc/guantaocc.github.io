@@ -1,5 +1,5 @@
 ---
-title: canvas使用和相关辅助库
+title: canvas API使用
 date: 2021-09-01
 categories:
   - 数据可视化
@@ -272,4 +272,63 @@ n阶贝塞尔曲线就有 n-1个控制点
 
 - 二次贝塞尔曲线 context.quadraticCurveTo(cpx,cpy,x,y);
 
+:::details 贝塞尔曲线在线转换工具
+贝塞尔曲线  [在线转换工具](http://tinyurl.com/html5quadratic)。
+:::
+
+```js
+var context = canvas.getContext("2d");
+context.fillStyle = "#FFF";
+context.fillRect(0,0,800,600);
+
+context.lineWidth = 6;
+context.strokeStyle = "#333";
+context.beginPath();
+context.moveTo(60, 337);
+context.quadraticCurveTo(256, 43, 458, 336);
+context.stroke();
+```
+
+- 三次贝塞尔曲线: context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
+
+## 保存状态
+
+save: 保存之前绘制的状态
+restore: 恢复之前的状态并继续绘制
+
+```js
+var ctx = canvas.getContext("2d");
+
+ctx.save(); // 保存默认的状态
+
+ctx.fillStyle = "green";
+ctx.fillRect(10, 10, 100, 100);
+
+ctx.restore(); // 还原到上次保存的默认状态
+ctx.fillRect(150, 75, 100, 100);
+```
+
+
+## 平移变换
+
+canvas变换跟 css变换api相似
+:::warning
+注意涉及到坐标系原点的操作最好 save 之后再 restore使坐标系恢复到原点
+:::
+
+- 平移变换: translate(x, y)
+```js
+ctx.fillStyle = "#00AAAA";
+ctx.fillRect(100, 100, 200, 100);
+
+// 在平移之前保存状态
+ctx.save();
+ctx.fillStyle = "red";
+ctx.translate(100, 100);
+ctx.fillRect(100, 100, 200, 100);
+// 平移坐标系之后将坐标系释放到(0, 0)原点
+ctx.restore();
+```
+- 旋转变换: rotate(deg)
+- 缩放变换: scale()
 
