@@ -270,7 +270,7 @@ ctx.fill()
 n阶贝塞尔曲线就有 n-1个控制点
 :::
 
-:one: 二次贝塞尔曲线 context.quadraticCurveTo(cpx,cpy,x,y);
+- 二次贝塞尔曲线 context.quadraticCurveTo(cpx,cpy,x,y);
 
 :::details 贝塞尔曲线在线转换工具
 贝塞尔曲线  [在线转换工具](http://tinyurl.com/html5quadratic)。
@@ -289,7 +289,7 @@ context.quadraticCurveTo(256, 43, 458, 336);
 context.stroke();
 ```
 
-:two: 三次贝塞尔曲线: context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
+- 三次贝塞尔曲线: context.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,x,y);
 
 ## 保存状态
 
@@ -316,7 +316,7 @@ canvas变换跟 css变换api相似
 注意涉及到坐标系原点的操作最好 save 之后再 restore使坐标系恢复到原点
 :::
 
-:one: 平移变换: translate(x, y)
+- 平移变换: translate(x, y)
 ```js
 ctx.fillStyle = "#00AAAA";
 ctx.fillRect(100, 100, 200, 100);
@@ -329,6 +329,33 @@ ctx.fillRect(100, 100, 200, 100);
 // 平移坐标系之后将坐标系释放到(0, 0)原点
 ctx.restore();
 ```
-:two: 旋转变换: rotate(deg)
-:three: 缩放变换: scale()
+- 旋转变换: rotate(deg)
+
+```js
+for (var i = 0; i <= 12; i++) {
+  context.save();
+  context.translate(70 + i * 50, 50);
+  // 旋转12次后为 2PI, 则回到原来的状态
+  context.rotate(i * 30 * Math.PI / 180);
+  context.fillStyle = "red";
+  context.fillRect(0, 0, 20, 20);
+  context.restore();
+}
+```
+- 缩放变换: scale()
+:::warning
+缩放时，图像左上角坐标的位置也会对应缩放。
+缩放时，图像线条的粗细也会对应缩放。
+:::
+
+```js
+ctx.save()
+ctx.scale(9, 3);
+ctx.fillStyle = 'red';
+ctx.fillRect(10, 10, 8, 20);
+ctx.restore()
+```
+
+## 矩阵变换
+CanvasRenderingContext2D.transform() 是 Canvas 2D API 使用矩阵多次叠加当前变换的方法，矩阵由方法的参数进行描述。你可以缩放、旋转、移动和倾斜上下文。
 
