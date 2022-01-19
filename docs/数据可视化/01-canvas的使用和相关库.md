@@ -155,8 +155,8 @@ context.fillStyle = grd;
 context.fill();
 ```
 
-结果:
-![canvas矩形](./images/xian-xing-jian-bian.png)
+线性渐变结果:
+![canvas矩形](./images/xian-xing-jian-bian.png 400x300)
 
 径向渐变：由中间向外发散
 
@@ -178,4 +178,98 @@ context.fillRect(100, 100, 600, 400);
 ```
 
 径向渐变结果:
-![canvas矩形](./images/jing-xiang-jian-bian.png)
+![canvas矩形](./images/jing-xiang-jian-bian.png 400x300)
+
+## 填充图案
+
+:::tip
+createPattern(img,repeat-style)，第一个是Image对象实例(CanvasImageSource对象)，第二个参数是String类型，表示在形状中如何显示repeat图案
+:::
+
+```js
+ctx.beginPath();
+var img = new Image();
+img.src = 'https://mdn.mozillademos.org/files/222/Canvas_createpattern.png';
+img.onload = function () {
+  var pattern = ctx.createPattern(img, 'repeat');
+  ctx.fillStyle = pattern;
+  ctx.fillRect(0, 0, 400, 400);
+};
+```
+
+## 绘制复杂路径图形
+:::tip
+根据不同的一些算法曲线绘制复杂的图形，如三角函数，贝塞尔曲线等
+:::
+
+1. arc()圆弧
+context.arc(x,y,radius,startAngle,endAngle,anticlockwise)
+
+- 画一个半圆
+```js
+function drawArt(ctx, x, y, radius) {
+  ctx.beginPath()
+  ctx.arc(x + radius, y + radius, radius, Math.PI, Math.PI * 3 / 2)
+  ctx.fillStyle = "#000"
+  ctx.stroke();
+}
+```
+- 画一个圆形的头像并添加边框
+```js
+var img = new Image();
+img.src = 'https://mdn.mozillademos.org/files/222/Canvas_createpattern.png';
+img.width = 50
+img.height = 50
+img.onload = function () {
+  // 在 100, 100处画一个圆并裁切
+  ctx.beginPath()
+  ctx.arc(25, 25, 25, 0, Math.PI * 2, false)
+  ctx.clip()
+  ctx.drawImage(img, 0, 0, 50, 50)
+  ctx.lineWidth = 2
+  ctx.strokeStyle = 'red'
+  ctx.stroke()
+  ctx.closePath()
+};
+```
+
+2. arcTo 切点绘制弧线
+```js
+// 使用切点绘制弧线
+ctx.beginPath()
+ctx.moveTo(200, 200)
+// 使用上面moveTo作为起点，因此 200,200一定在圆弧上
+ctx.arcTo(600, 200, 600, 400, 100)
+ctx.lineWidth = 5
+ctx.strokeStyle = "red"
+ctx.stroke()
+```
+
+```js
+// 绘制微信对话框
+ctx.beginPath()
+ctx.moveTo(100, 180)
+// r = 20
+ctx.arcTo(100, 100, 120, 100, 20)
+ctx.arcTo(300, 100, 300, 120, 20)
+ctx.lineTo(300, 140)
+ctx.lineTo(320, 150)
+ctx.lineTo(300, 160)
+ctx.arcTo(300, 200, 280, 200, 20)
+ctx.arcTo(100, 200, 100, 180, 20)
+ctx.stroke()
+ctx.fillStyle = '#9eea6a'
+ctx.fill()
+```
+
+微信气泡框结果:
+![微信气泡框](./images/weixin-qipao.png 400x300)
+
+## 贝塞尔曲线
+
+context.quadraticCurveTo(cpx,cpy,x,y);
+:::tip
+n阶贝塞尔曲线就有 n-2个控制点
+:::
+
+
