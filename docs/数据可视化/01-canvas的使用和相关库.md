@@ -10,7 +10,7 @@ tags:
 ---
 
 
-## canvas画一个矩形
+## 线条样式和基于状态绘制
 
 :::tip
 canvas 使基于状态的绘制，因此需要beginPath 和 closePath的辅助
@@ -37,7 +37,7 @@ window.onload = function(){
 }
 ```
 
-## 画多个的矩形
+## 快速生成矩形
 
 convas2d提供了绘制矩形的两个类: fillRect()和strokeRect()
 
@@ -218,18 +218,17 @@ function drawArt(ctx, x, y, radius) {
 ```js
 var img = new Image();
 img.src = 'https://mdn.mozillademos.org/files/222/Canvas_createpattern.png';
-img.width = 50
-img.height = 50
+ctx.save()
+ctx.beginPath()
+ctx.lineWidth = 2
+ctx.strokeStyle = 'red'
+ctx.arc(25, 25, 25, 0, Math.PI * 2, false)
+ctx.clip()
+ctx.stroke()
+ctx.closePath()
 img.onload = function () {
-  // 在 100, 100处画一个圆并裁切
-  ctx.beginPath()
-  ctx.arc(25, 25, 25, 0, Math.PI * 2, false)
-  ctx.clip()
   ctx.drawImage(img, 0, 0, 50, 50)
-  ctx.lineWidth = 2
-  ctx.strokeStyle = 'red'
-  ctx.stroke()
-  ctx.closePath()
+  ctx.restore()
 };
 ```
 
@@ -359,3 +358,163 @@ ctx.restore()
 ## 矩阵变换
 CanvasRenderingContext2D.transform() 是 Canvas 2D API 使用矩阵多次叠加当前变换的方法，矩阵由方法的参数进行描述。你可以缩放、旋转、移动和倾斜上下文。
 
+使用context.transform (1,0,0,1,dx,dy)代替context.translate(dx,dy)
+使用context.transform(sx,0,0,sy,0,0)代替context.scale(sx, sy)
+使用context.transform(0,b,c,0,0,0)来实现倾斜效果(最实用)。
+
+- transform
+```js
+context.save();
+//平移至(300,200)
+context.transform(1, 0, 0, 1, 300, 200);
+//水平方向放大2倍，垂直方向放大1.5倍
+context.transform(2, 0, 0, 1.5, 0, 0);
+//水平方向向右倾斜宽度10%的距离，垂直方向向上倾斜高度10%的距离
+context.transform(1, -0.1, 0.1, 1, 0, 0);
+context.fillRect(0, 0, 200, 200);
+context.strokeRect(0, 0, 200, 200);
+context.restore();
+```
+
+- setTransform
+setTransform()不会相对于其他变换来发生行为,只会先对于原始图形变换
+
+```js
+context.fillStyle="yellow";
+context.fillRect(200,100,250,100)
+context.setTransform(1,0.5,-0.5,1,30,10);
+context.fillStyle="red";
+context.fillRect(200,100,250,100);
+```
+
+## 文本显示与渲染
+
+|属性|描述|
+|:--:|:--:|
+|`font`|设置或返回文本内容的当前字体属性|
+|`textAlign`|设置或返回文本内容的当前对齐方式|
+|`textBaseline`|设置或返回在绘制文本时使用的当前文本基线|
+
+|方法|描述|
+|:--:|:--:|
+|`fillText()`|在画布上绘制“被填充的”文本|
+|`strokeText()`|在画布上绘制文本（无填充）|
+|`measureText()`|返回包含指定文本对象的宽度|
+
+1. 显示一段文本
+
+```js
+context.fillStyle = '#f1f1f1'
+context.fillRect(50, 50, 500, 400)
+// 1. 设置字体
+context.font = "20px sans-serif"
+// 2. 设置字体颜色
+context.fillStyle = "#000"
+// 3. 显示字体
+context.fillText("文本", 100, 100)
+```
+
+2. 文本测量
+```js
+var txt = "mesureText width";
+context.fillText("width:" + context.measureText(txt).width, 20, 20);
+```
+
+## 阴影效果
+
+context.shadowColor：阴影颜色。
+context.shadowOffsetX：阴影x轴位移。正值向右，负值向左。
+context.shadowOffsetY：阴影y轴位移。正值向下，负值向上。
+context.shadowBlur：阴影模糊滤镜。数据越大，扩散程度越大。
+
+
+## 全局透明
+context.globalAlpha = (0 - 1的透明度);
+
+```js
+context.save()
+context.globalAlpha = 0.5;
+context.shadowColor = "red";
+context.shadowOffsetX = 5;
+context.shadowOffsetY = 5;
+context.shadowBlur = 2;
+context.fillRect(50, 50, 100, 100)
+
+// 如果不 restore的话，下面的 rect也会带有阴影
+context.restore()
+
+context.fillRect(200, 200, 50, 50)
+```
+
+## 图像合成
+
+globalCompositeOperation 设置要在绘制新形状时应用的合成操作的类型，其中type是用于标识要使用的合成或混合模式操作的字符串。
+
+```js
+context.globalCompositeOperation = "xor";
+
+context.fillStyle = "blue";
+context.fillRect(10, 10, 100, 100);
+
+context.fillStyle = "red";
+context.fillRect(50, 50, 100, 100);
+```
+
+## 图像裁剪
+
+:::tip
+裁剪是对画布进行的，裁切后的画布不能恢复到原来的大小,需要用 save(), restore()
+:::
+
+```js
+context.save()
+// 画出一道圆弧路径
+context.arc(100, 100, 75, 0, Math.PI * 2, false);
+context.clip();
+// 对裁剪后的路径进行填充
+context.fillRect(0, 0, 100, 100);
+context.restore()
+```
+
+## 绘制图像
+drawImage()是一个很关键的方法，它可以引入图像、画布、视频，并对其进行缩放或裁剪。
+
+三参数: void ctx.drawImage(image, dx, dy)
+五参数: void ctx.drawImage(image, dx, dy, dWidth, dHeight)
+全部餐宿: void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight)
+
+|参数|描述|
+|:--:|:--:|
+|img|规定要使用的图像、画布或视频。|
+|sx|可选。开始剪切的 x 坐标位置。|
+|sy|可选。开始剪切的 y 坐标位置。|
+|swidth|可选。被剪切图像的宽度。|
+|sheight|可选。被剪切图像的高度。|
+|x|在画布上放置图像的 x 坐标位置。|
+|y|在画布上放置图像的 y 坐标位置。|
+|width|可选。要使用的图像的宽度。（伸展或缩小图像）|
+|height|可选。要使用的图像的高度。（伸展或缩小图像）|
+
+
+## 绘制路径方向
+
+绘制同心圆
+```js
+context.arc(100, 200, 50, 0, Math.PI * 2, false);
+context.arc(100, 200, 60, 0, Math.PI * 2, true);
+context.fillStyle = "red";
+context.fill();
+```
+
+## 橡皮擦
+
+这个方法通过把像素设置为透明以达到擦除一个矩形区域的目的。
+
+:::tip
+如果没有依照 绘制路径 的步骤，使用 clearRect() 会导致意想之外的结果。请确保在调用 clearRect()之后绘制新内容前调用beginPath() 。
+:::
+
+清空画布
+```js
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+```
