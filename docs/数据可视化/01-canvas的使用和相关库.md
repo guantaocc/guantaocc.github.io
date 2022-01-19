@@ -263,13 +263,13 @@ ctx.fill()
 ```
 
 微信气泡框结果:
-![微信气泡框](./images/weixin-qipao.png 400x300)
+![微信气泡框](./images/weixin-qipao.png)
 
 ## 贝塞尔曲线
-
-context.quadraticCurveTo(cpx,cpy,x,y);
 :::tip
-n阶贝塞尔曲线就有 n-2个控制点
+n阶贝塞尔曲线就有 n-1个控制点
 :::
+
+- 二次贝塞尔曲线 context.quadraticCurveTo(cpx,cpy,x,y);
 
 
