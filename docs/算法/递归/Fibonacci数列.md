@@ -25,12 +25,19 @@ var fib = function(n) {
 };
 ```
 
-2. 打表返回重复值
+2. 打表获取重复计算的操作
 ```js
+var map = {}
 var fib = function(n) {
   if(n == 1 || n == 2){
     return 1
   }
-  return fib(n - 1) + fib(n - 2)
+  if(map[n]){
+    return map[n]
+  }
+  let res = fib(n - 1) + fib(n - 2)
+  map[n] = res
+  return 
 };
+
 ```
