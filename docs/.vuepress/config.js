@@ -56,18 +56,18 @@ module.exports = {
       },
       {
         text: "技术博客",
-        link: "/技术博客/",
+        link: "/技术博客/01-实现在富文本中@用户的功能",
         icon: "reco-home",
       },
       {
         text: "算法",
         icon: "reco-document",
         items: [
-          { text: "经典排序算法", link: "/算法/经典排序算法/" },
-          { text: "栈和队列", link: "/算法/栈和队列/" },
-          { text: "递归", link: "/算法/递归/" },
-          { text: "深度优先dfs", link: "/算法/深度优先dfs/" },
-          { text: "广度优先bfs", link: "/算法/广度优先bfs/" }
+          { text: "经典排序算法", link: "/算法/经典排序算法/01-冒泡排序" },
+          { text: "栈和队列", link: "/算法/栈和队列/有效的括号" },
+          { text: "递归", link: "/算法/递归/汉诺塔问题" },
+          { text: "深度优先dfs", link: "/算法/深度优先dfs/路径总和" },
+          { text: "广度优先bfs", link: "/算法/广度优先bfs/二叉树最小深度" }
         ],
       },
       { text: "TimeLine", link: "/timeline/", icon: "reco-date" },
@@ -75,17 +75,16 @@ module.exports = {
     // 博客配置
     blogConfig: {
       category: {
-        location: 2, // 在导航栏菜单中所占的位置，默认2
+        location: 7, // 在导航栏菜单中所占的位置，默认2
         text: "Category", // 默认文案 “分类”
       },
       tag: {
-        location: 3, // 在导航栏菜单中所占的位置，默认3
+        location: 8, // 在导航栏菜单中所占的位置，默认3
         text: "Tag", // 默认文案 “标签”
       },
       socialLinks: [
         // 信息栏展示社交信息
         { icon: "reco-github", link: "https://github.com/recoluan" },
-        { icon: "reco-npm", link: "https://www.npmjs.com/~reco_luan" },
       ],
       friendLink: [
         {
@@ -100,7 +99,6 @@ module.exports = {
           email: "recoluan@qq.com",
           link: "https://www.recoluan.com",
         },
-        // ...
       ],
     },
   },
