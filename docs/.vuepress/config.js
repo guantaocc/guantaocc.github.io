@@ -56,14 +56,18 @@ module.exports = {
       },
       {
         text: "技术博客",
-        link: "/技术博客/01-实现在富文本中@用户的功能",
+        link: "/技术博客/",
         icon: "reco-home",
       },
       {
         text: "算法",
         icon: "reco-document",
         items: [
-          { text: "经典排序算法", link: "/算法/经典排序算法/01-冒泡排序" },
+          { text: "经典排序算法", link: "/算法/经典排序算法/" },
+          { text: "栈和队列", link: "/算法/栈和队列/" },
+          { text: "递归", link: "/算法/递归/" },
+          { text: "深度优先dfs", link: "/算法/深度优先dfs/" },
+          { text: "广度优先bfs", link: "/算法/广度优先bfs/" }
         ],
       },
       { text: "TimeLine", link: "/timeline/", icon: "reco-date" },
