@@ -32,5 +32,6 @@ git add .
 git commit -m 'update blog master'
 git branch -M master
 git push -f git@github.com:guantaocc/guantaocc.github.io.git master
+git push origin master
 
 cd -
