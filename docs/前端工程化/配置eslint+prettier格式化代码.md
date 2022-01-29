@@ -50,11 +50,39 @@ module.exports = {
 module.exports = {
   printWidth: 80, //一行的字符数，如果超过会进行换行，默认为80
   tabWidth: 2, //一个tab代表几个空格
-  useTabs: false, //是否使用tab进行
-  singleQuote: false, //字符串是否使
+  useTabs: false, //是否使用tab进行换行
+  singleQuote: true, //字符串是否使用单引号
   semi: false,
-  trailingComma: "none", //是否使用
-  bracketSpacing: true, //对象大括号}
+  trailingComma: "none",
+  bracketSpacing: true, //对象大括号
   parser: "babel", //代码的解析引擎
+};
+```
+
+## vue-cli 创建项目的相关配置
+
+### 配置 typescript
+
+vscode 中对 ts 的 eslint 校验
+
+settings.json
+
+```
+"eslint.validate": "[typescript]"
+```
+
+### .eslintrc.js 中增加对 vue 的校验规则
+
+.eslintrc.js
+
+```js
+module.exports = {
+  extends: [
+    "plugin:vue/recommended", // vue语法 lint
+  ],
+  parserOptions: {
+    ecmaVersion: 2020,
+    parser: "babel-eslint", // 解决对jsx闭合标签的lint错误
+  },
 };
 ```

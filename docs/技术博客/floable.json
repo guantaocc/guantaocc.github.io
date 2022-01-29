@@ -1,0 +1,47 @@
+{
+	"flowId":"cmsNews",
+	"flowName":"新闻中心稿件发布",
+	"nodeList": [
+		{
+			"id":"start",
+			"nodeType": "START",
+			"name":"开始",
+			"nextNodeId": "collect"
+		},
+		{
+			"id":"collect",
+			"nodeType": "TASK",
+			"name":"采编新闻稿件",
+			"performType":"ANY",
+			"nextNodeId": "firstReview",
+			"ext":{
+				"userIds":"1,2,3"
+			}
+		},
+		{
+			"id":"firstReview",
+			"nodeType": "TASK",
+			"name":"党群部宣传科初审",
+			"performType":"ANY",
+			"nextNodeId": "secondReview",
+			"ext":{
+				"userIds":"1,2,3"
+			}
+		},
+		{
+			"id":"secondReview",
+			"nodeType": "TASK",
+			"name":"党群部二审",
+			"performType":"ANY",
+			"nextNodeId": "end",
+			"ext":{
+				"userIds":"1,2,3"
+			}
+		},
+		{
+			"id":"end",
+			"nodeType": "END",
+			"name":"结束"
+		}
+	]
+}
