@@ -7,7 +7,9 @@ tags:
   - 组件二次封装
 ---
 
-## 表单
+## 搜索表单
+
+根据formOptions渲染 顶部表单组件(抽离表单)
 
 ```vue
 <template>
@@ -43,7 +45,7 @@ tags:
         <el-select
           v-else-if="formItem.itemType === 'select'"
           v-model="modelForm[formItem.prop]"
-          :multiple="form.multiple"
+          :multiple="formItem.multiple"
         >
           <el-option
             v-for="item in formItem.options"
@@ -123,7 +125,10 @@ export default {
 </style>
 ```
 
-## 表格
+## 表格与分页
+
+将复杂表格格式化抽离 slot供外部调用
+
 ```vue
 <template>
   <div>
@@ -379,7 +384,6 @@ export default {
 <style>
 </style>
 ```
-## 分页
 
 ## 使用
 
