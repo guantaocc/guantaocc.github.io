@@ -1,5 +1,5 @@
 ---
-title: 基于canvas的拖拽，缩放和画布移动
+title: svg的使用
 date: 2021-09-10
 categories:
   - 数据可视化

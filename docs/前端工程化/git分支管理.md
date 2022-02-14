@@ -1,5 +1,5 @@
 ---
-title: vue-cli源码
+title: git分支管理
 date: 2021-01-28
 categories:
   - 前端工程化
@@ -8,6 +8,23 @@ tags:
 ---
 
 # git 常用操作
+
+
+## 添加文件到工作区和将文件移出工作区
+
+```bash
+git add . # 添加全部文件
+git reset HEAD filename # 将某个文件移出工作区
+```
+
+## 暂存文件
+
+适用于文件未提交的同时，想切换其他分支修复bug的情况
+
+```bash
+git stash # 暂存本分支的修改，不用 commit
+git stash list # 查看暂存栈
+```
 
 ## 暂存修改(stash)和切换分支(checkout)
 
