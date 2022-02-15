@@ -183,3 +183,16 @@ fetch(url, { signal }).then((response) => {});
 1. encodeURI 用来编码 URI，其不会编码保留字符：;,/?😡&=+$
 
 2. encodeURIComponent 用来编码 URI 参数，除了字符：A-Z a-z 0-9 - \_ . ! ~ \* ' ( )，都将会转义
+
+
+# prefetch 与 preload
+
+preload 优先级高: 加载当前路由必需资源
+prefetch: 优先级低 : prefetch 当前 Link 的路由资源
+
+# fetch 中 crendentials
+
+判断是否携带 cookie
+- omit: 从不发送 cookie.
+- same-origin: 同源时发送 cookie (浏览器默认值)
+- include: 同源与跨域时都发送 cookie
