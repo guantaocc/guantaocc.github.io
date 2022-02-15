@@ -28,3 +28,10 @@ textarea {
   resize: none;
 }
 ```
+
+## element元素主动事件
+
+常用: 
+click(): 模拟点击元素，会触发元素点击事件
+blur(): 失去焦点
+focus(): 聚焦
