@@ -16,7 +16,7 @@ function log({ msg, preMsg = `websocket：`, style, print = true }) {
   }
 }
 //  全局保存 this
-let _me;
+let _this;
 
 /**
  * @description:
@@ -37,8 +37,8 @@ function Foo({
   pingMsg = "Ping!",
   print = true,
 }) {
-  _me = this;
-  _me.opts = {
+  _this = this;
+  _this.opts = {
     url,
     pingTimeout,
     pongTimeout,
@@ -48,7 +48,7 @@ function Foo({
   };
 
   //  连接次数
-  _me.times = 0;
+  _this.times = 0;
 
   //  比如实例化后未定义 onopen 方法，_me.onopen 会报错，因此提前全部覆盖一下
   this.onopen = () => {};
@@ -60,89 +60,89 @@ function Foo({
 }
 
 function createConnect() {
-  _me.ws = new WebSocket(_me.opts.url);
-  _me.times++;
+  _this.ws = new WebSocket(_this.opts.url);
+  _this.times++;
   console.group("websocket");
-  log({ msg: "正在连接...", print: _me.opts.print });
-  log({ msg: `当前为第 ${_me.times} 次连接`, print: _me.opts.print });
+  log({ msg: "正在连接...", print: _this.opts.print });
+  log({ msg: `当前为第 ${_this.times} 次连接`, print: _this.opts.print });
   init();
 }
 
 function init() {
-  _me.ws.onopen = () => {
-    log({ msg: "已经连接", print: _me.opts.print });
-    _me.onopen();
+  _this.ws.onopen = () => {
+    log({ msg: "已经连接", print: _this.opts.print });
+    _this.onopen();
     //  建立连接后开始心跳监控
     heartCheck();
   };
 
-  _me.ws.onmessage = (res) => {
-    log({ msg: `<<=== Pong`, print: _me.opts.print });
-    _me.onmessage(res);
+  _this.ws.onmessage = (res) => {
+    log({ msg: `<<=== Pong`, print: _this.opts.print });
+    _this.onmessage(res);
     //  收到信息后开始心跳监控
     heartCheck();
   };
 
-  _me.ws.onerror = () => {
+  _this.ws.onerror = () => {
     console.log("连接失败");
-    _me.onerror();
+    _this.onerror();
   };
 
-  _me.ws.onclose = () => {
-    log({ msg: "连接已关闭", print: _me.opts.print });
+  _this.ws.onclose = () => {
+    log({ msg: "连接已关闭", print: _this.opts.print });
     console.groupEnd();
-    _me.onclose();
+    _this.onclose();
 
     //  如果手动关闭则跳出，反之重连
-    if (_me.stopConnect === true) return;
+    if (_this.stopConnect === true) return;
     console.log("开始重连");
-    clearTimeout(_me.connectID);
-    _me.connectID = setTimeout(createConnect, _me.opts.reconnectInterval);
+    clearTimeout(_this.connectID);
+    _this.connectID = setTimeout(createConnect, _this.opts.reconnectInterval);
   };
 }
 
 Foo.prototype.send = function (e) {
-  _me.ws.send(e);
+  _this.ws.send(e);
 };
 
 Foo.prototype.close = function () {
   //  停止重连标识
   console.log("停止重连并关闭");
-  _me.stopConnect = true;
-  _me.ws.close();
+  _this.stopConnect = true;
+  _this.ws.close();
 };
 
 // 发送心跳检测
 function sendHeartCheck() {
   return new Promise((resolve) => {
-    _me.pingID = setTimeout(() => {
+    _this.pingID = setTimeout(() => {
       // 发送心跳检测
-      _me.ws.send(_me.opts.pingMsg);
+      _this.ws.send(_this.opts.pingMsg);
       log({
-        msg: `===>> ${_me.opts.pingMsg} - 心跳间隔 ${_me.opts.pingTimeout}ms`,
-        print: _me.opts.print,
+        msg: `===>> ${_this.opts.pingMsg} - 心跳间隔 ${_this.opts.pingTimeout}ms`,
+        print: _this.opts.print,
       });
       resolve();
-    }, _me.opts.pingTimeout);
+    }, _this.opts.pingTimeout);
   });
 }
 
 // 等待响应准备重连
 function waitForResponse() {
-  _me.pongID = setTimeout(() => {
+  _this.pongID = setTimeout(() => {
     // 如果定时器结束仍然未接收到响应, 则认定重连机制
     log({
-      msg: `${_me.opts.pongTimeout}ms 未收到响应，等待重连...`,
-      print: _me.opts.print,
+      msg: `${_this.opts.pongTimeout}ms 未收到响应，等待重连...`,
+      print: _this.opts.print,
     });
-    _me.ws.close();
-  }, _me.opts.pongTimeout);
+    _this.ws.close();
+  }, _this.opts.pongTimeout);
 }
 
 // 心跳检测
 function heartCheck() {
-  clearTimeout(_me.pingID);
-  clearTimeout(_me.pongID);
+  clearTimeout(_this.pingID);
+  clearTimeout(_this.pongID);
   // 发送心跳
   sendHeartCheck().then(() => {
     // 发送心跳完毕等待 message响应
