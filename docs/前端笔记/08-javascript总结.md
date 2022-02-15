@@ -166,3 +166,23 @@ function cloneDeep(obj) {
   return result;
 }
 ```
+
+# 模块化(commonjs, AMD, ESModule)
+
+amd 是一种浏览器中的模块格式，关键字为 define，cjs 是一种 Node 中的模块格式，也是广为人所熟悉的 require/exports。
+而 umd 是 amd 与 cjs 两种格式的兼容。既可以跑在浏览器，又可以跑在 Node 中
+
+例如 layui 好像是 umd 管理的模块导入
+
+amd
+
+```js
+define(["jquery", "underscore"], function ($, _) {});
+```
+
+umd
+
+```js
+// 通过自执行函数实现 umd的模块机制
+(function (root, factory) {})(this, function ($) {});
+```
