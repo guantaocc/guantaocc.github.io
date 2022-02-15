@@ -8,3 +8,7 @@ tags:
   - webpack5
 ---
 
+
+# 扩展
+
+- [webpack所有配置说明](https://webpack.docschina.org/configuration/)
