@@ -5,8 +5,14 @@ categories:
   - 源码
 tags: 
   - webpack
-  - webpack5
 ---
+
+
+# webpack常用插件
+切换主题色: [webpack-theme-color-replacer](https://github.com/hzsrc/webpack-theme-color-replacer)
+
+文件管理和压缩: [filemanager-webpack-plugin](https://github.com/gregnb/filemanager-webpack-plugin)
+
 
 
 # 扩展
