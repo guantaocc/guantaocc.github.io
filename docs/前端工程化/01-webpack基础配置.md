@@ -32,7 +32,49 @@ cjs 引用时是值的拷贝，esm 为值的引用
 
 # webpack 运行时
 
-webpack 打包后代码是怎么运行的
+webpack 打包后代码是怎么运行的:
+
+1. 核心modules数组: __webpack__modules根据顺序保存了 模块的导入函数
+
+简单的主模块数组
+
+```js
+var __webpack__modules = [ ,(module) => {
+  const sum = (a, b) => a + b
+  module.exports = sum
+} ]
+```
+2. __webpack__require(module, module.exports, )
+  共有三个参数 module对象其中初始化了 exports属性
+
+简化的 require函数
+```js
+
+function __webpack__require(moduleID){
+  var module = { exports: { }}
+  // 实际赋值了 module.exports 属性 为 sum函数
+  __webpack_modules__[moduleId](
+    module,
+    module.exports,
+    __webpack_require__
+  )
+  // 将exports属性返回，也是就 sum函数
+  return module.exports
+}
+```
+
+3. 加载主模块
+```js
+// 拿到返回的模块内容， 也就是sum函数
+var sum  = __webpack__require[1]
+// 执行 函数
+sum(1, 2)
+```
+
+去掉iife后的代码
+```js
+
+```
 
 # webpack 常用 API
 
