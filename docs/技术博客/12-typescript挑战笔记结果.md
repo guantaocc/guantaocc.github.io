@@ -7,9 +7,7 @@ tags:
   - typescript
 ---
 
-:::tip
 typescript挑战题解: [原地址](https://github.com/type-challenges/type-challenges/)
-:::
 
 <!-- more -->
 

@@ -1,5 +1,5 @@
 ---
-title: 计算商品规格(sku)的业务逻辑
+title: 使用邻接矩阵计算商品规格(sku)的业务逻辑
 date: 2022-01-21
 categories:
   - 技术博客
