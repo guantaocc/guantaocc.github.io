@@ -1,5 +1,5 @@
 ---
-title: typescript系列
+title: typescript系列(挑战题题解)
 date: 2022-01-20
 categories:
   - 技术博客
@@ -10,6 +10,8 @@ tags:
 :::tip
 typescript挑战题解: [原地址](https://github.com/type-challenges/type-challenges/)
 :::
+
+<!-- more -->
 
 # 实现内置 pick类型
 
