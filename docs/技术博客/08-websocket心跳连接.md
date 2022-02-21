@@ -7,6 +7,8 @@ tags:
   - websocket
 ---
 
+## websocket心跳机制
+
 ```js
 // 心跳机制
 
@@ -29,7 +31,7 @@ let _this;
  * @return:
  */
 
-function Foo({
+function heartbeat({
   url,
   pingTimeout = 4000,
   pongTimeout = 6000,
@@ -101,11 +103,11 @@ function init() {
   };
 }
 
-Foo.prototype.send = function (e) {
+heartbeat.prototype.send = function (e) {
   _this.ws.send(e);
 };
 
-Foo.prototype.close = function () {
+heartbeat.prototype.close = function () {
   //  停止重连标识
   console.log("停止重连并关闭");
   _this.stopConnect = true;

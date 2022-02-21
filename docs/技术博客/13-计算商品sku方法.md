@@ -1,29 +1,26 @@
 ---
-title: 计算商品规格的业务逻辑
-date: 2021-12-20
+title: 计算商品规格(sku)的业务逻辑
+date: 2022-01-21
 categories:
   - 技术博客
 tags:
   - 算法
 ---
 
-:::tip
-介绍在常见电商业务中sku算法和业务效果的处理
-:::
-
 <!-- more -->
 
-# sku和商品规格的联系
+## sku和商品规格的联系
 
-sku是会计学中的一个名词，被称作库存单元。说人话？简单来讲就是，每一个单规格选项，例如深空灰色、64G,都是一个规格(sku)。商品和sku属于一对多的关系，也就是我们可以选择多个sku来确定到某个具体的商品:
+sku被称作库存单元。简单来讲就是，每一个单规格选项，例如深空灰色、64G,都是一个规格(sku)。
+商品和sku属于一对多的关系，也就是我们可以选择多个sku来确定到某个具体的商品:
 
 ![商品规格](./images/shangpin-guige.jpg)
 
-# 邻接矩阵实现
+## sku邻接矩阵实现
 
 邻接矩阵是通常用来标识简单地图，级联表单，迷宫等
 
-## 无向图和邻接矩阵关系
+### 无向图和邻接矩阵关系
 
 例如下面一个无向图:
 ![商品规格](./images/wuxiangtu.jpg)
@@ -94,10 +91,12 @@ demo.setAdjoinVertexs('v1', ['v3', 'v4']);
 demo.setAdjoinVertexs('v2', ['v0', 'v3', 'v4']);
 demo.setAdjoinVertexs('v3', ['v0', 'v1', 'v2']);
 demo.setAdjoinVertexs('v4', ['v1', 'v2']);
+
+// 可以 获取到与v0顶点连接的点
 console.log(demo.getAdjoinVertexs('v0')); // => ['v2', 'v3']
 ```
 
-## 简单的sku数据
+### 简单的sku数据
 
 ```js
 const data = [
@@ -113,6 +112,8 @@ const commoditySpecs = [
 ];
 ```
 
-# 参考
+
+
+## 参考
 
 - 

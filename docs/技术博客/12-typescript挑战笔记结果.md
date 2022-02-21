@@ -1,5 +1,5 @@
 ---
-title: typescript系列(挑战题题解)
+title: typescript练习题题解 type-challenges
 date: 2022-01-20
 categories:
   - 技术博客

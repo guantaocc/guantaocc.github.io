@@ -8,6 +8,8 @@ tags:
 ---
 
 
+## 源码解析如下(包含注释)
+
 ```js
 /* NProgress, (c) 2013, 2014 Rico Sta. Cruz - http://ricostacruz.com/nprogress
  * @license MIT */
