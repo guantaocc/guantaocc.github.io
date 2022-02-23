@@ -67,7 +67,8 @@ module.exports = {
           { text: "栈和队列", link: "/算法/栈和队列/有效的括号" },
           { text: "递归", link: "/算法/递归/汉诺塔问题" },
           { text: "深度优先dfs", link: "/算法/深度优先dfs/路径总和" },
-          { text: "广度优先bfs", link: "/算法/广度优先bfs/二叉树最小深度" }
+          { text: "广度优先bfs", link: "/算法/广度优先bfs/二叉树最小深度" },
+          { text: "回溯法", link: "/算法/回溯法/查找树节点的路径" }
         ],
       },
       { text: "TimeLine", link: "/timeline/", icon: "reco-date" },
