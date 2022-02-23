@@ -8,6 +8,10 @@ tags:
   - prettier
 ---
 
+在vue, react中使用 prettier + eslint配合 vscode编辑器自动格式化代码
+
+<!-- more -->
+
 ## 在 create-react-app 配置
 
 ### 安装插件

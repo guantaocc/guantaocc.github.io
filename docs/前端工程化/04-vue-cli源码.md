@@ -5,10 +5,12 @@ categories:
   - 前端工程化
 tags: 
   - webpack
-  - vue-cli
-  - lerna
   - 脚手架
 ---
+
+简单阅读一下 vue-cli的一些源代码，学习一下vue-cli命令实现的代码逻辑
+
+<!-- more -->
 
 ## vue-cli目录
 

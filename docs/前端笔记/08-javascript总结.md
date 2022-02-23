@@ -7,7 +7,7 @@ tags:
   - javascript
 ---
 
-# 手写节流和防抖
+## 手写节流和防抖
 
 节流和防抖的区别为 防抖多次触发只触发依次，通常用于由于外部控件或用户触发的事件，节流则应用于 scroll 等频繁触发的事件上
 
@@ -44,7 +44,7 @@ function debounce(fn, wait) {
 }
 ```
 
-# 手写 apply, call, bind
+## 手写 apply, call, bind
 
 call(与 apply 相比为 参数是否为数据 的区别)
 
@@ -93,7 +93,7 @@ Function.prototype.softBind = function (obj, ...rest) {
 };
 ```
 
-# Promise 中 API 手写
+## Promise 中 API 手写
 
 - 实现 promise.map，限制 promise 并发数
   例如:
@@ -107,11 +107,11 @@ pMap([1, 1, 1, 1, 1, 1, 1, 1], (x) => sleep(1000), { concurrency: 2 });
 function pMap(list, mapper, concurrency = Infinity) {}
 ```
 
-# JSON.stringify 和 parse
+## JSON.stringify 和 parse
 
 - stringify 对于 undefined 会忽略，而 null 不会
 
-# 类数组和数组
+## 类数组和数组
 
 类数组拥有 length 属性，但不是数组对象
 通常 NodeList, HTMLCollection,
@@ -124,7 +124,7 @@ Array.prototype.concat.apply([], arrayLike);
 [...arrayLike];
 ```
 
-# 函数式和柯里化, compose 函数
+## 函数式和柯里化, compose 函数
 
 - compose 函数从外向里执行函数并返回结果
 
@@ -147,7 +147,7 @@ export default function compose(...funcs: Function[]) {
 }
 ```
 
-# 实现深拷贝
+## 实现深拷贝
 
 简单浅拷贝，不考虑 Functon, Date, Regxp 类型
 
@@ -167,12 +167,11 @@ function cloneDeep(obj) {
 }
 ```
 
-# 模块化(commonjs, AMD, ESModule)
+## 模块化(commonjs, AMD, ESModule)
 
 amd 是一种浏览器中的模块格式，关键字为 define，cjs 是一种 Node 中的模块格式，也是广为人所熟悉的 require/exports。
 而 umd 是 amd 与 cjs 两种格式的兼容。既可以跑在浏览器，又可以跑在 Node 中
 
-例如 layui 好像是 umd 管理的模块导入
 
 amd
 
@@ -186,3 +185,26 @@ umd
 // 通过自执行函数实现 umd的模块机制
 (function (root, factory) {})(this, function ($) {});
 ```
+
+## new Object() 和 Object.prototype
+
+new Object() 创建后的实例的原型为Object.prototype
+Object.create(null) 创建后原型为null
+
+
+~~~javascript
+const obj1 = {
+  name: 'zhangsan'
+  age: 12
+}
+
+const obj2 = new Object(obj1)
+console.log(obj1 === obj2) // true
+
+// 没有原型对象
+const obj3 = Object.create(null)
+
+// 指定原型对象
+const obj4 = Object.create(obj1)
+console.log(obj4.__protp__ === obj1) // true
+~~~

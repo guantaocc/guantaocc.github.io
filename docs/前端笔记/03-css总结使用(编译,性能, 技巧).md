@@ -7,7 +7,7 @@ tags:
   - css
 ---
 
-# box-shadow 多重阴影和单边阴影
+## box-shadow 多重阴影和单边阴影
 
 ::: tip
 box-shadow: offset-x, offset-y, 阴影半径，模糊距离, position: 默认或者指定 inset
@@ -30,7 +30,7 @@ box-shadow: offset-x, offset-y, 阴影半径，模糊距离, position: 默认或
 }
 ```
 
-# 文本超出显示省略号
+## 文本超出显示省略号
 
 1. 单行文本
 
@@ -60,7 +60,7 @@ white-space CSS 属性是用来设置如何处理元素中的 空白 (en-US)。
 }
 ```
 
-# v-html 怎么识别一个原始文本
+## v-html 怎么识别一个原始文本
 
 ::: tip
 CSS 属性 word-break 指定了怎样在单词内断行。
@@ -78,7 +78,7 @@ CSS 属性 word-break 指定了怎样在单词内断行。
 }
 ```
 
-# 如何使文本两端对齐?
+## 如何使文本两端对齐?
 
 ::: tip
 text-justify 必须与 text-align: justify;同时出现
@@ -94,7 +94,7 @@ text-justify 必须与 text-align: justify;同时出现
 }
 ```
 
-# 如何在文本首行空出字符
+## 如何在文本首行空出字符
 
 ```css
 .text {
@@ -102,7 +102,7 @@ text-justify 必须与 text-align: justify;同时出现
 }
 ```
 
-# 如何给文本添加下划线和删除线
+## 如何给文本添加下划线和删除线
 
 ```css
 .text {
@@ -111,7 +111,7 @@ text-justify 必须与 text-align: justify;同时出现
 }
 ```
 
-# 改变字符的方向
+## 改变字符的方向
 
 ```css
 .text {
@@ -120,7 +120,7 @@ text-justify 必须与 text-align: justify;同时出现
 }
 ```
 
-# 背景图片渐变
+## 背景图片渐变
 
 ::: tip
 background-image: url(./test.jpg);
@@ -154,7 +154,7 @@ background-image: url(./test.jpg);
 }
 ```
 
-# 如何平铺，适配背景图像
+## 如何平铺，适配背景图像
 
 1. 平铺
 
@@ -178,7 +178,7 @@ fixed:
 }
 ```
 
-# 怎样去除一个元素的轮廓
+## 怎样去除一个元素的轮廓
 
 ```css
 .outer {
@@ -186,7 +186,7 @@ fixed:
 }
 ```
 
-# 如果将一个元素指定宽高比
+## 如果将一个元素指定宽高比
 
 1. 将子元素高度设为 0, 并且宽度 100%. 并且利用 padding-top 撑开高度 设置百分比
 2. aspect-ratio: 4/3;
@@ -220,7 +220,7 @@ fixed:
 }
 ```
 
-# 怎么点击穿透一个元素
+## 怎么点击穿透一个元素
 
 :::tip
 pointer-events CSS 属性指定在什么情况下 (如果有) 某个特定的图形元素可以成为鼠标事件的 target
@@ -235,7 +235,7 @@ label {
 }
 ```
 
-# :focus-within 和 :focus 的区别
+## :focus-within 和 :focus 的区别
 
 :focus-within 表示一个元素自身获取焦点，以及子元素获取焦点后的效果。
 
@@ -249,12 +249,12 @@ form:focus-within > .widthInput {
 }
 ```
 
-# css 优先级
+## css 优先级
 
 id > class/属性 > 伪类 > 标签/伪元素
 无影响: \*, +(兄弟选择器), ~(兄弟后代选择器) , >, :not()
 
-# 重排，重绘
+## 重排，重绘
 
 1. 重排是元素的位置发生变动(width, height, left, top)等,当一个元素位置发生变化时，其父元素及其后边的元素位置都可能发生变化,性能消耗较大
 2. 重绘是元素的表现(color, font)变动
@@ -268,7 +268,7 @@ id > class/属性 > 伪类 > 标签/伪元素
 - extensions: 查找重排重绘对照表
   (css-triggers)[https://csstriggers.com/]
 
-# 元素水平垂直居中方法
+## 元素水平垂直居中方法
 
 1. position
 
@@ -317,7 +317,7 @@ align-items: center;
 }
 ```
 
-# 简单 loading 动画
+## 简单 loading 动画
 
 1. svg
 
@@ -375,7 +375,7 @@ CSS animation 属性是 animation-name，animation-duration, animation-timing-fu
 }
 ```
 
-# css 变量
+## css 变量
 
 可通过 css 变量控制主题切换, 媒体查询使用，全局配置
 
@@ -392,7 +392,7 @@ CSS animation 属性是 animation-name，animation-duration, animation-timing-fu
 document.getElementById("box").style.setPropertyValue("--color", "pink");
 ```
 
-# css 三角形
+## css 三角形
 
 控制 css 的一侧边框则可实现三角形
 
@@ -405,7 +405,7 @@ document.getElementById("box").style.setPropertyValue("--color", "pink");
 }
 ```
 
-# 样式抖动
+## 样式抖动
 
 通常由于在 hover 效果时产生了对于 element 元素的长宽变化(例如 border 等)
 
@@ -414,12 +414,12 @@ document.getElementById("box").style.setPropertyValue("--color", "pink");
 1. 固定宽高 + box-sizing
 2. 元素设置 margin
 
-# nth-child, last-child 匹配子元素
+## nth-child, last-child 匹配子元素
 
 - 如何匹配最前三个子元素: :nth-child(-n+3)
 - 如何匹配最后三个子元素: :nth-last-child(-n+3)
 
-# 媒体查询
+## 媒体查询
 
 1. 视口媒体查询
 
@@ -441,7 +441,7 @@ document.getElementById("box").style.setPropertyValue("--color", "pink");
 }
 ```
 
-# gird 布局设置间距
+## gird 布局设置间距
 
 大小屏幕均分问题
 

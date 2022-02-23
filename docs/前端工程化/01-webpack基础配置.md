@@ -7,7 +7,7 @@ tags:
   - webpack
 ---
 
-# 关于模块 cjs, umd. esm
+## 关于模块 cjs, umd. esm
 
 - commonjs
   可以在 node 环境下运行
@@ -22,7 +22,7 @@ tags:
 cjs 引用时是值的拷贝，esm 为值的引用
 :::
 
-# AST(抽象语法树)
+## AST(抽象语法树)
 
 关于代码转化: Code-AST-Transform-Code
 
@@ -30,9 +30,9 @@ cjs 引用时是值的拷贝，esm 为值的引用
   查看 ast 转换的网站 [https://astexplorer.net/](https://astexplorer.net/)
   简易 ast 编译 [the-super-tiny-compiler](https://github.com/jamiebuilds/the-super-tiny-compiler)
 
-# webpack 运行时
+## webpack-runtime 运行时
 
-webpack 打包后代码是怎么运行的:
+webpack-runtime 打包后代码是怎么运行的:
 
 1. 核心modules数组: __webpack__modules根据顺序保存了 模块的导入函数
 
@@ -76,7 +76,7 @@ sum(1, 2)
 
 ```
 
-# webpack 常用 API
+## webpack 常用 API
 
 1. 构造函数
 
@@ -88,7 +88,8 @@ sum(1, 2)
 
 - run 开始运行编译
 
-# code-spliting 分包
+
+## code-spliting 分包
 
 webpack 异步加载模块
 
@@ -98,7 +99,7 @@ import(/* webpackChunkName: 'sum' */ "./sum").then((m) => {
 });
 ```
 
-# 加载资源
+## 加载资源
 
 1. webpack4 中配置 loader
 
@@ -106,25 +107,25 @@ import(/* webpackChunkName: 'sum' */ "./sum").then((m) => {
 
 ```
 
-# 样式表(style, sass, less)等
+## 样式表(style, sass, less)等
 
-## 加载 loader 原理
+### 加载 loader 原理
 
 css-loader: 通过 postcss 转化语法并转换 ast 并将 url()和 @import 解析成模块
 style-loader: 当我们将 css-loader 编译成模块之后需要 在浏览器端生效就需要 style-loader 处理
 
 - 问题: 由于 css-loader 解析之后需要通过 DOMAPI 生成 style 标签加载 css 样式 因此需要样式抽离
 
-## 样式抽离
+### 样式抽离
 
 mini-css-extract-plugin
 
-# webpack 常用插件
+### webpack 常用插件
 
 切换主题色: [webpack-theme-color-replacer](https://github.com/hzsrc/webpack-theme-color-replacer)
 
 文件管理和压缩: [filemanager-webpack-plugin](https://github.com/gregnb/filemanager-webpack-plugin)
 
-# 扩展
+### 扩展
 
 - [webpack 所有配置说明](https://webpack.docschina.org/configuration/)
