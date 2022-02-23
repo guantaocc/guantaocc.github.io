@@ -7,9 +7,11 @@ tags:
   - git
 ---
 
-# git 常用操作
+git 常用操作命令和工具配置，讲解git flow开发的流程
 
-## 获取和设置远程分支
+<!-- more -->
+
+## 获取和设置远程分支 (git clone)
 
 1. clone仓库到本地
 
@@ -30,14 +32,14 @@ git remote add origin 远程仓库地址
 git remote remove origin # 移除对应的远程仓库地址
 ```
 
-## 添加文件到工作区和将文件移出工作区
+## 添加文件到工作区和将文件移出工作区(git add/restore)
 
 ```bash
 git add . # 添加全部文件
-git reset HEAD filename # 将某个文件移出工作区
+git restore  filename # 将某个文件移出工作区
 ```
 
-## 暂存文件
+## 暂存文件(git stash)
 
 适用于文件未提交的同时，想切换其他分支修复bug的情况
 
@@ -52,3 +54,20 @@ git stash apply stash@{1} # 恢复指定暂存内容
 git stash drop stash@{1}        # 删除 stash@{1} 分支对应的缓存数据
 git stash pop                   # 将最近一次暂存数据恢复并从栈中删除
 ```
+
+## 分支操作(branch/checkout)
+
+```bash
+# 切换分支
+git checkout dev
+
+# 新建并切换分支
+git checkout -b feature-1
+
+# 删除分支
+git branch -d feature-1
+
+# 合并分支
+git merge feature-1
+```
+
