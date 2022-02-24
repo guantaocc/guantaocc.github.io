@@ -263,3 +263,53 @@ a[]=3&a[]=4&a[]=5
 
 a[0]=3&a[1]=4&a[2]=5
 ```
+
+## requestAnimationFrame使用
+
+raf可以在浏览器渲染帧率 60fps也就是相当于 16.7秒执行一次
+raf会在执行的函数中注入定时器当前执行的事件并返回 raf的id用于取消raf
+
+```js
+let startTime = 0
+let count = 100
+let ref = window.requestAnimationFrame(test)
+
+// raf timeout
+function test(timestamp) {
+  console.log(timestamp)
+  ref = window.requestAnimationFrame(test)
+}
+```
+
+- raf-pilyfill
+
+```js
+(function() {
+  var lastTime = 0;
+  var vendors = ['webkit', 'moz'];
+  //如果window.requestAnimationFrame为undefined先尝试浏览器前缀是否兼容
+  for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+    window.requestAnimationFrame = window[vendors[x] + 'RequestAnimationFrame'];
+    window.cancelAnimationFrame = window[vendors[x] + 'CancelAnimationFrame'] ||//webkit中此取消方法的名字变了
+                                  window[vendors[x] + 'CancelRequestAnimationFrame'];
+  }
+  //如果仍然不兼容，则使用setTimeOut进行兼容操作
+  if(!window.requestAnimationFrame) {
+    window.requestAnimationFrame = function(callback, element) {
+      var currTime = new Date().getTime();
+      var timeToCall = Math.max(0, 16.7 - (currTime - lastTime));
+      var id = window.setTimeout(function() {
+        callback(currTime + timeToCall);
+      }, timeToCall);
+      lastTime = currTime + timeToCall;
+      return id; 
+    }
+  }
+ 
+  if(!window.cancelAnimationFrame) {
+    window.cancelAnimationFrame = function(id) {
+      clearTimeout(id);
+    }
+  }
+})();
+```
