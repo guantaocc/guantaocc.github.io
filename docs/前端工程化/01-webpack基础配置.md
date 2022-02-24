@@ -76,36 +76,7 @@ sum(1, 2)
 
 ```
 
-## webpack 常用 API
 
-1. 构造函数
-
-- Webpack 构造函数，参数通常为我们导出的配置
-
-2. 属性
-
-3. 方法
-
-- run 开始运行编译
-
-
-## code-spliting 分包
-
-webpack 异步加载模块
-
-```js
-import(/* webpackChunkName: 'sum' */ "./sum").then((m) => {
-  console.log(m.default(3, 4));
-});
-```
-
-## 加载资源
-
-1. webpack4 中配置 loader
-
-```js
-
-```
 
 ## 样式表(style, sass, less)等
 
@@ -115,6 +86,26 @@ css-loader: 通过 postcss 转化语法并转换 ast 并将 url()和 @import 解
 style-loader: 当我们将 css-loader 编译成模块之后需要 在浏览器端生效就需要 style-loader 处理
 
 - 问题: 由于 css-loader 解析之后需要通过 DOMAPI 生成 style 标签加载 css 样式 因此需要样式抽离
+- loader的顺序是从后向前加载的，因为通常前一个loader需要后一个loader处理后返回的结果
+
+
+
+简单的loader和参数
+
+```js
+module.exports = {
+
+}
+```
+
+### 样式抽离
+
+使用mini-css-extract-plugin对css文件从模块中抽离并压缩配置
+
+```js
+```
+
+### webpack 常用插件使用
 
 ### 自定义loader
 
@@ -180,14 +171,13 @@ module.exports = function(source, sourceMap, data){
 ```
 
 ### 样式抽离
-
-mini-css-extract-plugin
-
-### webpack 常用插件
-
 切换主题色: [webpack-theme-color-replacer](https://github.com/hzsrc/webpack-theme-color-replacer)
 
 文件管理和压缩: [filemanager-webpack-plugin](https://github.com/gregnb/filemanager-webpack-plugin)
+
+
+## 开始打包, webpack命令行参数
+
 
 ### 扩展
 
