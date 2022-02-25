@@ -175,6 +175,284 @@ module.exports = function(source, sourceMap, data){
 
 文件管理和压缩: [filemanager-webpack-plugin](https://github.com/gregnb/filemanager-webpack-plugin)
 
+### babel配置
+
+插件和预设的执行顺序：
+
+插件比预设先执行
+插件执行顺序是插件数组从前向后执行
+
+```js
+module.exports = (api) => {
+    return {
+        presets: [
+            '@babel/preset-react',
+            [
+                '@babel/preset-env', {
+                    useBuiltIns: 'usage',
+                    corejs: '2',
+                    targets: {
+                        chrome: '58',
+                        ie: '10'
+                    }
+                }
+            ]
+        ],
+        plugins: [
+            '@babel/plugin-transform-react-jsx',
+            '@babel/plugin-proposal-class-properties'
+        ]
+    };
+};
+```
+
+### 文件配置 file-loader
+
+```js
+import img from './webpack.png';
+console.log(img); // 编译后：https://www.test.com/webpack_605dc7bf.png
+
+// webpack.config.js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[name]_[hash:8].[ext]',
+          publicPath: "https://www.test.com",
+        },
+      },
+    ],
+  },
+};
+```
+
+### url-loader处理大小图片
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.(png|jpg|jpeg)$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: {
+              name: '[name]_[hash:8].[ext]',
+              // 这里单位为(b) 10240 => 10kb
+              // 这里如果小于10kb则转换为base64打包进js文件，如果大于10kb则打包到对应目录
+              limit: 10240,
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+### ts配置
+
+webpack5
+
+```bash
+yarn add typescript ts-loader -D
+```
+
+webpack4 需安装 ts-loader 8.x
+
+配置文件 tsconfig.json解析
+
+```json
+{
+  "compilerOptions": {
+    /* 基本选项 */
+    "target": "es5",                       // 指定 ECMAScript 目标版本: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'（"ESNext"表示最新的ES语法，包括还处在stage X阶段）
+    "module": "commonjs",                  // 指定使用模块: 'commonjs', 'amd', 'system', 'umd' or 'es2015'
+    "lib": [],                             // 指定要包含在编译中的库文件
+    "allowJs": true,                       // 允许编译 javascript 文件
+    "checkJs": true,                       // 报告 javascript 文件中的错误
+    "jsx": "preserve",                     // 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'
+    "declaration": true,                   // 生成相应的 '.d.ts' 文件
+    "sourceMap": true,                     // 生成相应的 '.map' 文件
+    "outFile": "./",                       // 将输出文件合并为一个文件
+    "outDir": "./",                        // 指定输出目录
+    "rootDir": "./",                       // 用来控制输出目录结构 --outDir.
+    "removeComments": true,                // 删除编译后的所有的注释
+    "noEmit": true,                        // 不生成输出文件
+    "importHelpers": true,                 // 从 tslib 导入辅助工具函数
+    "isolatedModules": true,               // 将每个文件做为单独的模块 （与 'ts.transpileModule' 类似）.
+
+    /* 严格的类型检查选项 */
+    "strict": true,                        // 启用所有严格类型检查选项
+    "noImplicitAny": true,                 // 在表达式和声明上有隐含的 any类型时报错
+    "strictNullChecks": true,              // 启用严格的 null 检查
+    "noImplicitThis": true,                // 当 this 表达式值为 any 类型的时候，生成一个错误
+    "alwaysStrict": true,                  // 以严格模式检查每个模块，并在每个文件里加入 'use strict'
+
+    /* 额外的检查 */
+    "noUnusedLocals": true,                // 有未使用的变量时，抛出错误
+    "noUnusedParameters": true,            // 有未使用的参数时，抛出错误
+    "noImplicitReturns": true,             // 并不是所有函数里的代码都有返回值时，抛出错误
+    "noFallthroughCasesInSwitch": true,    // 报告 switch 语句的 fallthrough 错误。（即，不允许 switch 的 case 语句贯穿）
+
+    /* 模块解析选项 */
+    "moduleResolution": "node",            // 选择模块解析策略： 'node' (Node.js) or 'classic' (TypeScript pre-1.6)。默认是classic
+    "baseUrl": "./",                       // 用于解析非相对模块名称的基目录
+    "paths": {},                           // 模块名到基于 baseUrl 的路径映射的列表
+    "rootDirs": [],                        // 根文件夹列表，其组合内容表示项目运行时的结构内容
+    "typeRoots": [],                       // 包含类型声明的文件列表
+    "types": [],                           // 需要包含的类型声明文件名列表
+    "allowSyntheticDefaultImports": true,  // 允许从没有设置默认导出的模块中默认导入。
+
+    /* Source Map Options */
+    "sourceRoot": "./",                    // 指定调试器应该找到 TypeScript 文件而不是源文件的位置
+    "mapRoot": "./",                       // 指定调试器应该找到映射文件而不是生成文件的位置
+    "inlineSourceMap": true,               // 生成单个 soucemaps 文件，而不是将 sourcemaps 生成不同的文件
+    "inlineSources": true,                 // 将代码与 sourcemaps 生成到一个文件中，要求同时设置了 --inlineSourceMap 或 --sourceMap 属性
+
+    /* 其他选项 */
+    "experimentalDecorators": true,        // 启用装饰器
+    "emitDecoratorMetadata": true,         // 为装饰器提供元数据的支持
+    "strictFunctionTypes": false           // 禁用函数参数双向协变检查。
+  },
+  /* 指定编译文件或排除指定编译文件 */
+  "include": [
+      "src/**/*"
+  ],
+  "exclude": [
+      "node_modules",
+      "**/*.spec.ts"
+  ],
+  "files": [
+    "core.ts",
+    "sys.ts"
+  ],
+  // 从另一个配置文件里继承配置
+  "extends": "./config/base",
+  // 让IDE在保存文件的时候根据tsconfig.json重新生成文件
+  "compileOnSave": true // 支持这个特性需要Visual Studio 2015， TypeScript1.8.4以上并且安装atom-typescript插件
+}
+```
+
+## plugins配置
+
+### html-webpack-plugin
+
+```js
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+  entry: {
+    news: [path.resolve(__dirname, '../src/news/index.js')],
+    video: path.resolve(__dirname, '../src/video/index.js'),
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'news page',
+      // 生成的文件名称 相对于webpackConfig.output.path路径而言
+      filename: 'pages/news.html',
+      // 生成filename的文件模板
+      template: path.resolve(__dirname, '../template/news/index.html'),
+      chunks: ['news']
+
+    }),
+    new HtmlWebpackPlugin({
+      title: 'video page',
+      // 生成的文件名称
+      filename: 'pages/video.html',
+      // 生成filename的文件模板
+      template: path.resolve(__dirname, '../template/video/index.html'),
+      chunks: ['video']
+    }),
+  ]
+};
+```
+
+### copy-webpack-plugin
+
+```js
+const CopyPlugin = require("copy-webpack-plugin");
+
+module.exports = {
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { 
+          from: './template/page.html', 
+          to: `${__dirname}/output/cp/page.html` 
+        },
+      ],
+    }),
+  ],
+};
+```
+
+### 定义编译时变量 DefinePlugin
+
+```js
+// webpack.config.js
+const isProd = process.env.NODE_ENV === 'production';
+module.exports = {
+  plugins: [
+    new webpack.DefinePlugin({
+      PAGE_URL: JSON.stringify(isProd
+        ? 'https://www.tencent.com/page'
+        : 'http://testsite.tencent.com/page'
+      )
+    }),
+  ]
+}
+
+// 代码里面直接使用
+console.log(PAGE_URL);
+```
+
+### 分析模块大小
+
+```js
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+module.exports = {
+  plugins: [
+    new BundleAnalyzerPlugin()
+  ]
+}
+```
+
+### 代码分割 splitChunks
+
+```js
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+
+module.exports = {
+  optimization: {
+    splitChunks: {
+      // 分隔符
+      // automaticNameDelimiter: '~',
+      // all, async, and initial
+      chunks: 'all',
+      // 它可以继承/覆盖上面 splitChunks 中所有的参数值，除此之外还额外提供了三个配置，分别为：test, priority 和 reuseExistingChunk
+      cacheGroups: {
+        vendors: {
+          // 表示要过滤 modules，默认为所有的 modules，可匹配模块路径或 chunk 名字，当匹配的是 chunk 名字的时候，其里面的所有 modules 都会选中
+          test: /[\\/]node_modules\/antd\//,
+          // priority：表示抽取权重，数字越大表示优先级越高。因为一个 module 可能会满足多个 cacheGroups 的条件，那么抽取到哪个就由权重最高的说了算；
+          // priority: 3,
+          // reuseExistingChunk：表示是否使用已有的 chunk，如果为 true 则表示如果当前的 chunk 包含的模块已经被抽取出去了，那么将不会重新生成新的。
+          reuseExistingChunk: true,
+          name: 'antd'
+        }
+      }
+    }
+  },
+}
+```
+
+### webpack 常用插件
 
 ## 开始打包, webpack命令行参数
 
