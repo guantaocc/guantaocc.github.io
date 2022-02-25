@@ -452,11 +452,6 @@ module.exports = {
 }
 ```
 
-### webpack 常用插件
-
-## 开始打包, webpack命令行参数
-
-
 ### 扩展
 
 - [webpack 所有配置说明](https://webpack.docschina.org/configuration/)
