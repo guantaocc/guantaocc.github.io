@@ -136,6 +136,19 @@ render() {
 }
 ```
 
+4. 获取事件对象
+
+获取到的事件对象都为原生的事件对象(不同与 react的事件委托机制)
+
+```js
+methods: {
+  handleClick(e){
+    console.log(e)
+  }
+}
+
+```
+
 ### 指令在jsx中的写法
 
 1. v-if 和 v-for
@@ -243,8 +256,105 @@ render(){
 
 3. 作用域插槽
 
-在JSX中，因为没有v-slot指令，所以作用域插槽的使用方式就与模板代码里面的方式有所不同, 需要使用到 $scopedSlots属性
+在JSX中，因为没有v-slot指令，所以作用域插槽的使用方式就与模板代码里面的方式有所不同, 需要使用到 scopedSlots属性
 
+例如自定义 element-ui中 table列的 作用域插槽
 
 ```js
+{/* jsx element template */}
+<ElTable data={this.data}>
+  <ElTableColumn label="姓名" scopedSlots={{ header: ({ row }) => { return <span>姓名</span>}, default: ({row}) => { return <div style="color: red">{row.name}</div>} }}></ElTableColumn>
+</ElTable>
+```
+
+### 函数式组件中的用法
+
+函数式组件没有自己的 this, 所有属性直接从 context属性中获取
+
+```js
+render(h, context){
+  const { props } = context
+  if(props.avatar){
+    return <img src={props.avatar} />
+  }
+  return <img src="default.png" />
+}
+```
+
+### 获取 ref
+
+使用 $refs + ref名称 获取即可
+
+```js
+render(){
+  return <MyComponent ref="refCom" />
+}
+```
+
+## 附：官网上对 render函数中 createElement属性解释
+
+```js
+{
+  // 与 `v-bind:class` 的 API 相同，
+  // 接受一个字符串、对象或字符串和对象组成的数组
+  'class': {
+    foo: true,
+    bar: false
+  },
+  // 与 `v-bind:style` 的 API 相同，
+  // 接受一个字符串、对象，或对象组成的数组
+  style: {
+    color: 'red',
+    fontSize: '14px'
+  },
+  // 普通的 HTML attribute
+  attrs: {
+    id: 'foo'
+  },
+  // 组件 prop
+  props: {
+    myProp: 'bar'
+  },
+  // DOM property
+  domProps: {
+    innerHTML: 'baz'
+  },
+  // 事件监听器在 `on` 内，
+  // 但不再支持如 `v-on:keyup.enter` 这样的修饰器。
+  // 需要在处理函数中手动检查 keyCode。
+  on: {
+    click: this.clickHandler
+  },
+  // 仅用于组件，用于监听原生事件，而不是组件内部使用
+  // `vm.$emit` 触发的事件。
+  nativeOn: {
+    click: this.nativeClickHandler
+  },
+  // 自定义指令。注意，你无法对 `binding` 中的 `oldValue`
+  // 赋值，因为 Vue 已经自动为你进行了同步。
+  directives: [
+    {
+      name: 'my-custom-directive',
+      value: '2',
+      expression: '1 + 1',
+      arg: 'foo',
+      modifiers: {
+        bar: true
+      }
+    }
+  ],
+  // 作用域插槽的格式为
+  // { name: props => VNode | Array<VNode> }
+  scopedSlots: {
+    default: props => createElement('span', props.text)
+  },
+  // 如果组件是其它组件的子组件，需为插槽指定名称
+  slot: 'name-of-slot',
+  // 其它特殊顶层 property
+  key: 'myKey',
+  ref: 'myRef',
+  // 如果你在渲染函数中给多个元素都应用了相同的 ref 名，
+  // 那么 `$refs.myRef` 会变成一个数组。
+  refInFor: true
+}
 ```
