@@ -39,7 +39,7 @@ module.exports = {
 ```
 
 
-## 进行使用
+## jsx中组件和标签属性写法总结
 
 jsx语法的使用需要在 render函数中进行并返回 vnode
 
