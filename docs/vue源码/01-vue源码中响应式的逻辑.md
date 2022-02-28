@@ -97,6 +97,7 @@ class Watcher {
     console.log("观察者" + this.id + `-检测到被观察者${ob.id}变化`);
   }
 }
+
 // 被观察者
 class Observed {
   constructor() {
@@ -123,6 +124,7 @@ observerd.notify()
 ```
 
 我们发现观察者模式具备通知的功能类似于我们 vue组件中 watch属性的作用
+观察者模式于发布订阅的逻辑一般在于是否拥有事件中心的机制
 
 ### 实现Dep和Watcher进行依赖收集
 
