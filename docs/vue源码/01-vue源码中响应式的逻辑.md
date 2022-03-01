@@ -8,6 +8,10 @@ tags:
   - vue3
 ---
 
+整理一下vue源码中关于响应式部分的原理和依赖收集通知部分的逻辑
+
+<!-- more -->
+
 ## 响应式原理
 
 ### vue的 defineProperty方法/ Proxy 及其作用
