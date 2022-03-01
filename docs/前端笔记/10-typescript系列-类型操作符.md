@@ -1,6 +1,6 @@
 ---
 title: typescript系列(类型操作符)
-date: 2022-01-20
+date: 2021-11-20
 categories:
   - 技术博客
 tags:
