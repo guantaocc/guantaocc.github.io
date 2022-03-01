@@ -4,7 +4,9 @@ bgImage: "/background.jpg"
 bgImageStyle: { height: "350px" }
 sidebar: false
 subSidebar: false
-heroText: "飞翔的砖头小博客"
+heroText: "飞翔的砖头"
+description: "一个无聊时期的技术分享"
+title: "飞翔砖头的个人博客"
 heroImageStyle:
   {
     maxHeight: "200px",
