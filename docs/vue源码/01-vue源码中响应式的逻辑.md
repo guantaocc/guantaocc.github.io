@@ -1,6 +1,6 @@
 ---
 title: vue响应式原理和依赖收集
-date: 2021-08-01
+date: 2021-11-02
 categories:
   - 源码
 tags: 
@@ -131,5 +131,95 @@ observerd.notify()
 1. Dep类
 
 ```js
-
+class Dep {
+  constructor(){
+    this.subs = []
+  }
+  addSub(sub){
+    this.subs.push(sub)
+  }
+  // 省略移除依赖的相关逻辑
+  // 收集依赖
+  depend(){
+    // 这里的 window.target是定义的 初始变量
+    // 最终对应的是 Watcher对象
+    if(window.target){
+      this.addSub(window.target)
+    }
+  }
+  // 通知观察者
+  notify(){
+    const subs = [...this.subs]
+    subs.forEach(sub => {
+      sub.update && sub.update()
+    })
+  }
+}
 ```
+
+2. 在哪里收集依赖以及怎么将 watcher实例赋值给 window.target
+
+我们可以在获取 obj属性值是也就是 getter函数中获取依赖
+
+```js
+function defineReactive(data, key, val){
+  let dep = new Dep()
+  Object.defineProperty(data, key, {
+    // 。。。
+    get: function(){
+      // 收集
+      dep.depend()
+      return val
+    },
+    set: function(newVal){
+      // 。。。
+      // 通知依赖
+      dep.notify()
+    }
+  })
+}
+```
+
+3. watcher实例
+
+我们将收集依赖定义在 getter函数中，那么我们可以很方便的触发 getter函数并将 window.target赋值为当前 watcher实例，那么watcher实例就会被收集到dep中
+
+```js
+class Watcher {
+  construtor(vm, expOrFn, cb){
+    // 相当于 $watch的定义, 例如读取监听 vm实例上的 data.a
+    this.vm = vm
+    // 这里返回一个函数，用于读取 vm实力上的 obj
+    // 例如 data.a.b.c
+    this.getter = parsePath(expOrFn)
+    this.cb = cb
+    // 读取响应式对象中的属性触发 Object.defineProperty的拦截 getter
+    this.value = this.get()
+  }
+  get(){
+    // 设置 window.target为 this(watcher对象)
+    window.target = this
+    let value = this.getter.call(this.vm, this.vm)
+    // 设置完后将 window.target 清除，用于下个 dep收集依赖
+    window.target = undefined
+    return value
+  }
+  // 更新触发回调函数即可
+  update(){
+    // 旧值和新值
+    const oldValue = this.value
+    this.value = this.get()
+    this.cb.call(this.vm, this.value, oldValue)
+  }
+}
+```
+
+## 收集依赖的作用
+
+1. 通知模板进行更新，当我们在模板中定义响应式数据时，我们就是追踪依赖，当数据变化时才会更新视图，而不是在任意的响应式数据发生更改后都更新视图
+2. 用户自定义的 watch监听数据 并获取回调通知
+
+## 关于侦测数组和新添加属性的问题
+
+由于 Object.defineProperty无法监听数组 length变化和 新的 obj属性的添加
+因此 Vue重写了部分 数组方法(push, slice) 和 提供 Vue.$set API解决这两种问题
