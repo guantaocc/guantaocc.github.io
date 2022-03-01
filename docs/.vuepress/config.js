@@ -85,7 +85,7 @@ module.exports = {
       },
       socialLinks: [
         // 信息栏展示社交信息
-        { icon: "reco-github", link: "https://github.com/recoluan" },
+        { icon: "reco-github", link: "https://github.com/guantaocc" },
       ],
       friendLink: [
         {
