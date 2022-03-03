@@ -11,6 +11,12 @@ tags:
 
 <!-- more -->
 
+## jsx作用
+
+jsx使用 js的模式编写，因此jsx更具有比 vue模板中更高的灵活性和扩展性
+
+例如 ant-design-vue组件库中大量使用了 jsx来支持外部更灵活的配置
+
 ## 使用jsx代替 h函数
 
 我们知道h函数返回 vue中的 vNode 函数,但是根据官网的实例，h函数嵌套结构书写非常的繁琐以及缺乏语义
@@ -290,6 +296,42 @@ render(){
   return <MyComponent ref="refCom" />
 }
 ```
+
+### 描述动态组件
+
+通常使用动态组件时 <component is="curComponent"><component>
+
+1. 使用 if / else判断
+
+```js
+render(){
+  const current = 'com1'
+  const currentComponent = (is) => {
+    if(is === 'com1'){
+      return <com1></com1>
+    }else{
+      return <com2></com2>
+    }
+  }
+  return <div>{currentComponent(current)}</div>
+}
+```
+
+2. 使用h函数
+
+render函数的参数 h函数可以渲染组件为vnode
+
+```js
+import com1 from './com1'
+import com2 from './com2'
+
+render(h){
+  // 相当于 is
+  const isCurrent = 'com1'
+  return <div>{ h(isCurrent) }</div>
+}
+```
+
 
 ## 附：官网上对 render函数中 createElement属性解释
 
