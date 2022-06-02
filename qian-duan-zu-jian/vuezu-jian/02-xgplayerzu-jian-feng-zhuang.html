@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Vue3封装 xgplayer播放器</title>
+    <meta name="generator" content="VuePress 1.9.5">
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+    
+    <link rel="preload" href="/assets/css/0.styles.4fa93fb9.css" as="style"><link rel="preload" href="/assets/js/app.ae30e598.js" as="script"><link rel="preload" href="/assets/js/3.01d1cec0.js" as="script"><link rel="preload" href="/assets/js/1.1fe82b05.js" as="script"><link rel="preload" href="/assets/js/39.21b6ef89.js" as="script"><link rel="prefetch" href="/assets/js/10.3e9298a3.js"><link rel="prefetch" href="/assets/js/11.fb2393b5.js"><link rel="prefetch" href="/assets/js/12.a26800fa.js"><link rel="prefetch" href="/assets/js/13.f8aeb58c.js"><link rel="prefetch" href="/assets/js/14.40752914.js"><link rel="prefetch" href="/assets/js/15.5f30a395.js"><link rel="prefetch" href="/assets/js/16.698bdbcf.js"><link rel="prefetch" href="/assets/js/17.2150d486.js"><link rel="prefetch" href="/assets/js/18.0da88b16.js"><link rel="prefetch" href="/assets/js/19.4317c516.js"><link rel="prefetch" href="/assets/js/20.3a473081.js"><link rel="prefetch" href="/assets/js/21.c350e376.js"><link rel="prefetch" href="/assets/js/22.0aea89c6.js"><link rel="prefetch" href="/assets/js/23.0424b957.js"><link rel="prefetch" href="/assets/js/24.b42f3c14.js"><link rel="prefetch" href="/assets/js/25.d3f816e4.js"><link rel="prefetch" href="/assets/js/26.5b6759b0.js"><link rel="prefetch" href="/assets/js/27.500457c7.js"><link rel="prefetch" href="/assets/js/28.6df57fa0.js"><link rel="prefetch" href="/assets/js/29.b7914552.js"><link rel="prefetch" href="/assets/js/30.13274aac.js"><link rel="prefetch" href="/assets/js/31.8fa4f1c3.js"><link rel="prefetch" href="/assets/js/32.01fd052e.js"><link rel="prefetch" href="/assets/js/33.8aefe2f6.js"><link rel="prefetch" href="/assets/js/34.3825148d.js"><link rel="prefetch" href="/assets/js/35.0bc962c0.js"><link rel="prefetch" href="/assets/js/36.19cfc225.js"><link rel="prefetch" href="/assets/js/37.6e70da5d.js"><link rel="prefetch" href="/assets/js/38.20cec98a.js"><link rel="prefetch" href="/assets/js/4.00b2e367.js"><link rel="prefetch" href="/assets/js/40.c77841a8.js"><link rel="prefetch" href="/assets/js/41.83d63194.js"><link rel="prefetch" href="/assets/js/42.a245d768.js"><link rel="prefetch" href="/assets/js/43.b7682941.js"><link rel="prefetch" href="/assets/js/44.9260e983.js"><link rel="prefetch" href="/assets/js/45.ae3f1a85.js"><link rel="prefetch" href="/assets/js/46.596db928.js"><link rel="prefetch" href="/assets/js/47.e66a126f.js"><link rel="prefetch" href="/assets/js/48.4bbeeab8.js"><link rel="prefetch" href="/assets/js/49.a4f83b67.js"><link rel="prefetch" href="/assets/js/5.2b810d0b.js"><link rel="prefetch" href="/assets/js/50.a3c54fee.js"><link rel="prefetch" href="/assets/js/51.66be9f70.js"><link rel="prefetch" href="/assets/js/52.1f479aaa.js"><link rel="prefetch" href="/assets/js/53.0db26e58.js"><link rel="prefetch" href="/assets/js/54.021e30a8.js"><link rel="prefetch" href="/assets/js/55.cccc7c6d.js"><link rel="prefetch" href="/assets/js/56.16e13d2d.js"><link rel="prefetch" href="/assets/js/57.1572b8c7.js"><link rel="prefetch" href="/assets/js/58.b6b5cc3d.js"><link rel="prefetch" href="/assets/js/59.03cea1c4.js"><link rel="prefetch" href="/assets/js/6.4f90ebf4.js"><link rel="prefetch" href="/assets/js/60.e4fa7f5d.js"><link rel="prefetch" href="/assets/js/61.aa60d167.js"><link rel="prefetch" href="/assets/js/62.d2b34e47.js"><link rel="prefetch" href="/assets/js/63.42d6f30b.js"><link rel="prefetch" href="/assets/js/64.ac421c5c.js"><link rel="prefetch" href="/assets/js/65.6bbeb9a1.js"><link rel="prefetch" href="/assets/js/66.6bf12539.js"><link rel="prefetch" href="/assets/js/67.8e0ee4b2.js"><link rel="prefetch" href="/assets/js/68.8a0cc337.js"><link rel="prefetch" href="/assets/js/69.4a38311c.js"><link rel="prefetch" href="/assets/js/7.18e98d8e.js"><link rel="prefetch" href="/assets/js/70.ac3ef421.js"><link rel="prefetch" href="/assets/js/71.44ab2f62.js"><link rel="prefetch" href="/assets/js/72.b43167c7.js"><link rel="prefetch" href="/assets/js/73.847ec25e.js"><link rel="prefetch" href="/assets/js/74.ba1229bd.js"><link rel="prefetch" href="/assets/js/75.d1e2a98d.js"><link rel="prefetch" href="/assets/js/76.9e3f3794.js"><link rel="prefetch" href="/assets/js/77.4b093b2a.js"><link rel="prefetch" href="/assets/js/8.9b6ca630.js"><link rel="prefetch" href="/assets/js/9.b1230b76.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.4fa93fb9.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container" data-v-1aefc0b4><div data-v-1aefc0b4><div id="loader-wrapper" class="loading-wrapper" data-v-d48f4d20 data-v-1aefc0b4 data-v-1aefc0b4><div class="loader-main" data-v-d48f4d20><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div><div data-v-d48f4d20></div></div> <!----> <!----></div> <div class="password-shadow password-wrapper-out" style="display:none;" data-v-25ba6db2 data-v-1aefc0b4 data-v-1aefc0b4><h3 class="title" data-v-25ba6db2 data-v-25ba6db2></h3> <p class="description" data-v-25ba6db2 data-v-25ba6db2></p> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div class="hide" data-v-1aefc0b4><header class="navbar" data-v-1aefc0b4><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"></a> <div class="links"><div class="color-picker"><a class="color-button"><i class="iconfont reco-color"></i></a> <div class="color-picker-menu" style="display:none;"><div class="mode-options"><h4 class="title">Choose mode</h4> <ul class="color-mode-options"><li class="dark">dark</li><li class="auto active">auto</li><li class="light">light</li></ul></div></div></div> <div class="search-box"><i class="iconfont reco-search"></i> <input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><a href="/前端笔记/01-HTML-超文本标记语言.html" class="nav-link"><i class="undefined"></i>
+  前端笔记
+</a></div><div class="nav-item"><a href="/前端工程化/配置eslint+prettier格式化代码.html" class="nav-link"><i class="iconfont reco-home"></i>
+  前端工程化
+</a></div><div class="nav-item"><a href="/数据可视化/01-canvas的使用和相关库.html" class="nav-link"><i class="iconfont reco-home"></i>
+  数据可视化
+</a></div><div class="nav-item"><a href="/技术博客/01-实现在富文本中@用户的功能.html" class="nav-link"><i class="iconfont reco-home"></i>
+  技术博客
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-document"></i>
+      算法
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/算法/经典排序算法/01-冒泡排序.html" class="nav-link"><i class="undefined"></i>
+  经典排序算法
+</a></li><li class="dropdown-item"><!----> <a href="/算法/栈和队列/有效的括号.html" class="nav-link"><i class="undefined"></i>
+  栈和队列
+</a></li><li class="dropdown-item"><!----> <a href="/算法/递归/汉诺塔问题.html" class="nav-link"><i class="undefined"></i>
+  递归
+</a></li><li class="dropdown-item"><!----> <a href="/算法/深度优先dfs/路径总和.html" class="nav-link"><i class="undefined"></i>
+  深度优先dfs
+</a></li><li class="dropdown-item"><!----> <a href="/算法/广度优先bfs/二叉树最小深度.html" class="nav-link"><i class="undefined"></i>
+  广度优先bfs
+</a></li><li class="dropdown-item"><!----> <a href="/算法/回溯法/查找树节点的路径.html" class="nav-link"><i class="undefined"></i>
+  回溯法
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      Category
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/前端工程化/" class="nav-link"><i class="undefined"></i>
+  前端工程化
+</a></li><li class="dropdown-item"><!----> <a href="/categories/源码/" class="nav-link"><i class="undefined"></i>
+  源码
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端学习笔记/" class="nav-link"><i class="undefined"></i>
+  前端学习笔记
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端笔记/" class="nav-link"><i class="undefined"></i>
+  前端笔记
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Vue组件/" class="nav-link"><i class="undefined"></i>
+  Vue组件
+</a></li><li class="dropdown-item"><!----> <a href="/categories/技术博客/" class="nav-link"><i class="undefined"></i>
+  技术博客
+</a></li><li class="dropdown-item"><!----> <a href="/categories/技术文章/" class="nav-link"><i class="undefined"></i>
+  技术文章
+</a></li><li class="dropdown-item"><!----> <a href="/categories/数据可视化/" class="nav-link"><i class="undefined"></i>
+  数据可视化
+</a></li><li class="dropdown-item"><!----> <a href="/categories/算法/" class="nav-link"><i class="undefined"></i>
+  算法
+</a></li><li class="dropdown-item"><!----> <a href="/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div> <!----></nav></div></header> <div class="sidebar-mask" data-v-1aefc0b4></div> <aside class="sidebar" data-v-1aefc0b4><div class="personal-info-wrapper" data-v-39576ba9 data-v-1aefc0b4><img src="/avatar.png" alt="author-avatar" class="personal-img" data-v-39576ba9> <!----> <div class="num" data-v-39576ba9><div data-v-39576ba9><h3 data-v-39576ba9>67</h3> <h6 data-v-39576ba9>Articles</h6></div> <div data-v-39576ba9><h3 data-v-39576ba9>46</h3> <h6 data-v-39576ba9>Tags</h6></div></div> <ul class="social-links" data-v-39576ba9><li class="social-item" data-v-39576ba9><i class="iconfont reco-github" style="color:#67cc86;" data-v-39576ba9></i></li></ul> <hr data-v-39576ba9></div> <nav class="nav-links"><div class="nav-item"><a href="/" class="nav-link"><i class="iconfont reco-home"></i>
+  首页
+</a></div><div class="nav-item"><a href="/前端笔记/01-HTML-超文本标记语言.html" class="nav-link"><i class="undefined"></i>
+  前端笔记
+</a></div><div class="nav-item"><a href="/前端工程化/配置eslint+prettier格式化代码.html" class="nav-link"><i class="iconfont reco-home"></i>
+  前端工程化
+</a></div><div class="nav-item"><a href="/数据可视化/01-canvas的使用和相关库.html" class="nav-link"><i class="iconfont reco-home"></i>
+  数据可视化
+</a></div><div class="nav-item"><a href="/技术博客/01-实现在富文本中@用户的功能.html" class="nav-link"><i class="iconfont reco-home"></i>
+  技术博客
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-document"></i>
+      算法
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/算法/经典排序算法/01-冒泡排序.html" class="nav-link"><i class="undefined"></i>
+  经典排序算法
+</a></li><li class="dropdown-item"><!----> <a href="/算法/栈和队列/有效的括号.html" class="nav-link"><i class="undefined"></i>
+  栈和队列
+</a></li><li class="dropdown-item"><!----> <a href="/算法/递归/汉诺塔问题.html" class="nav-link"><i class="undefined"></i>
+  递归
+</a></li><li class="dropdown-item"><!----> <a href="/算法/深度优先dfs/路径总和.html" class="nav-link"><i class="undefined"></i>
+  深度优先dfs
+</a></li><li class="dropdown-item"><!----> <a href="/算法/广度优先bfs/二叉树最小深度.html" class="nav-link"><i class="undefined"></i>
+  广度优先bfs
+</a></li><li class="dropdown-item"><!----> <a href="/算法/回溯法/查找树节点的路径.html" class="nav-link"><i class="undefined"></i>
+  回溯法
+</a></li></ul></div></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title"><i class="iconfont reco-category"></i>
+      Category
+    </span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/categories/前端工程化/" class="nav-link"><i class="undefined"></i>
+  前端工程化
+</a></li><li class="dropdown-item"><!----> <a href="/categories/源码/" class="nav-link"><i class="undefined"></i>
+  源码
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端学习笔记/" class="nav-link"><i class="undefined"></i>
+  前端学习笔记
+</a></li><li class="dropdown-item"><!----> <a href="/categories/前端笔记/" class="nav-link"><i class="undefined"></i>
+  前端笔记
+</a></li><li class="dropdown-item"><!----> <a href="/categories/Vue组件/" class="nav-link"><i class="undefined"></i>
+  Vue组件
+</a></li><li class="dropdown-item"><!----> <a href="/categories/技术博客/" class="nav-link"><i class="undefined"></i>
+  技术博客
+</a></li><li class="dropdown-item"><!----> <a href="/categories/技术文章/" class="nav-link"><i class="undefined"></i>
+  技术文章
+</a></li><li class="dropdown-item"><!----> <a href="/categories/数据可视化/" class="nav-link"><i class="undefined"></i>
+  数据可视化
+</a></li><li class="dropdown-item"><!----> <a href="/categories/算法/" class="nav-link"><i class="undefined"></i>
+  算法
+</a></li><li class="dropdown-item"><!----> <a href="/categories/设计模式/" class="nav-link"><i class="undefined"></i>
+  设计模式
+</a></li></ul></div></div><div class="nav-item"><a href="/tag/" class="nav-link"><i class="iconfont reco-tag"></i>
+  Tag
+</a></div><div class="nav-item"><a href="/timeline/" class="nav-link"><i class="iconfont reco-date"></i>
+  TimeLine
+</a></div> <!----></nav> <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>Vue组件</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/qian-duan-zu-jian/vuezu-jian/01-hua-dong-yan-zheng-ma-zu-jian.html" class="sidebar-link">Vue3配合Element-Plus实现滑动验证码组件</a></li><li><a href="/qian-duan-zu-jian/vuezu-jian/02-xgplayerzu-jian-feng-zhuang.html" aria-current="page" class="active sidebar-link">Vue3封装 xgplayer播放器</a></li></ul></section></li></ul> </aside> <div class="password-shadow password-wrapper-in" style="display:none;" data-v-25ba6db2 data-v-1aefc0b4><h3 class="title" data-v-25ba6db2 data-v-25ba6db2>Vue3封装 xgplayer播放器</h3> <!----> <label id="box" class="inputBox" data-v-25ba6db2 data-v-25ba6db2><input type="password" value="" data-v-25ba6db2> <span data-v-25ba6db2>Konck! Knock!</span> <button data-v-25ba6db2>OK</button></label> <div class="footer" data-v-25ba6db2 data-v-25ba6db2><span data-v-25ba6db2><i class="iconfont reco-theme" data-v-25ba6db2></i> <a target="blank" href="https://vuepress-theme-reco.recoluan.com" data-v-25ba6db2>vuePress-theme-reco</a></span> <span data-v-25ba6db2><i class="iconfont reco-copyright" data-v-25ba6db2></i> <a data-v-25ba6db2><!---->
+            
+          <!---->
+          2022
+        </a></span></div></div> <div data-v-1aefc0b4><main class="page"><section><div class="page-title"><h1 class="title">Vue3封装 xgplayer播放器</h1> <div data-v-f875f3fc><!----> <i class="iconfont reco-date" data-v-f875f3fc><span data-v-f875f3fc>8/20/2021</span></i> <!----> <i class="tags iconfont reco-tag" data-v-f875f3fc><span class="tag-item" data-v-f875f3fc>Vue3</span><span class="tag-item" data-v-f875f3fc>组件</span><span class="tag-item" data-v-f875f3fc>组件库封装</span></i></div></div> <div class="theme-reco-content content__default"><h3 id="xgplayer-西瓜播放器">xgplayer(西瓜播放器)</h3> <p>xg-video-player.vue</p> <div class="language-vue line-numbers-mode"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>player<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>playerRef<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> ref<span class="token punctuation">,</span> onMounted<span class="token punctuation">,</span> reactive<span class="token punctuation">,</span> computed<span class="token punctuation">,</span> onBeforeUnmount <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
+
+<span class="token comment">// 播放/暂停、全屏、进度条、封面图、播放时间、重播</span>
+<span class="token keyword">import</span> Player <span class="token keyword">from</span> <span class="token string">'xgplayer/dist/simple_player'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> volume <span class="token keyword">from</span> <span class="token string">'xgplayer/dist/controls/volume'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> playbackRate <span class="token keyword">from</span> <span class="token string">'xgplayer/dist/controls/playbackRate'</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> makeBullet <span class="token keyword">from</span> <span class="token string">'xgplayer/dist/controls/danmu'</span>
+<span class="token keyword">import</span> screenShot <span class="token keyword">from</span> <span class="token string">'xgplayer/dist/controls/screenShot'</span>
+<span class="token keyword">import</span> Keyboard <span class="token keyword">from</span> <span class="token string">'xgplayer/dist/controls/keyboard'</span>
+
+<span class="token keyword">import</span> HlsJsPlayer <span class="token keyword">from</span> <span class="token string">&quot;xgplayer-hls.js&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> FlvPlayer <span class="token keyword">from</span> <span class="token string">&quot;xgplayer-flv&quot;</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> playerEvents <span class="token keyword">from</span> <span class="token string">'./player-event'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">'xg-video-player'</span><span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span>
+    url<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> String<span class="token punctuation">,</span>
+      <span class="token keyword">default</span><span class="token operator">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+      required<span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  emits<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token operator">...</span>playerEvents<span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token parameter">props<span class="token punctuation">,</span> <span class="token punctuation">{</span> attrs<span class="token punctuation">,</span> emit <span class="token punctuation">}</span></span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> player <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> playerRef <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 根据后缀判断 type</span>
+    <span class="token keyword">const</span> videoType <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> url <span class="token operator">=</span> props<span class="token punctuation">.</span>url
+      <span class="token keyword">return</span> url<span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span>url<span class="token punctuation">.</span><span class="token function">lastIndexOf</span><span class="token punctuation">(</span><span class="token string">&quot;.&quot;</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 弹幕选项配置</span>
+    <span class="token keyword">const</span> danmu <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      panel<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      comments<span class="token operator">:</span> <span class="token punctuation">[</span>  <span class="token comment">//弹幕数组</span>
+        <span class="token punctuation">{</span>
+          duration<span class="token operator">:</span> <span class="token number">5000</span><span class="token punctuation">,</span> <span class="token comment">//弹幕持续显示时间,毫秒(最低为5000毫秒)</span>
+          id<span class="token operator">:</span> <span class="token string">'1'</span><span class="token punctuation">,</span> <span class="token comment">//弹幕id，需唯一</span>
+          start<span class="token operator">:</span> <span class="token number">1000</span><span class="token punctuation">,</span> <span class="token comment">//弹幕出现时间，毫秒</span>
+          prior<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">//该条弹幕优先显示，默认false</span>
+          color<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">//该条弹幕为彩色弹幕，默认false</span>
+          txt<span class="token operator">:</span> <span class="token string">'长弹幕'</span><span class="token punctuation">,</span> <span class="token comment">//弹幕文字内容</span>
+          style<span class="token operator">:</span> <span class="token punctuation">{</span>  <span class="token comment">//弹幕自定义样式</span>
+            color<span class="token operator">:</span> <span class="token string">'#fff'</span><span class="token punctuation">,</span>
+            fontSize<span class="token operator">:</span> <span class="token string">'20px'</span><span class="token punctuation">,</span>
+            border<span class="token operator">:</span> <span class="token string">'solid 1px #ff9500'</span><span class="token punctuation">,</span>
+            borderRadius<span class="token operator">:</span> <span class="token string">'20px'</span><span class="token punctuation">,</span>
+            padding<span class="token operator">:</span> <span class="token string">'2px 4px'</span><span class="token punctuation">,</span>
+            backgroundColor<span class="token operator">:</span> <span class="token string">'rgba(0, 0, 0, 0.5)'</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span>
+          mode<span class="token operator">:</span> <span class="token string">'top'</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      area<span class="token operator">:</span> <span class="token punctuation">{</span>  <span class="token comment">//弹幕显示区域</span>
+        start<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment">//区域顶部到播放器顶部所占播放器高度的比例</span>
+        end<span class="token operator">:</span> <span class="token number">1</span> <span class="token comment">//区域底部到播放器顶部所占播放器高度的比例</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+      closeDefaultBtn<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token comment">//开启此项后不使用默认提供的弹幕开关，默认使用西瓜播放器提供的开关</span>
+      defaultOff<span class="token operator">:</span> <span class="token boolean">false</span> <span class="token comment">//开启此项后弹幕不会初始化，默认初始化弹幕</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 外挂字幕</span>
+    <span class="token keyword">const</span> textTrackOptions <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 进度点的特殊标记</span>
+    <span class="token keyword">const</span> progressDot <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token punctuation">[</span>
+      <span class="token punctuation">{</span>
+        time<span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token comment">//展示标记的时间</span>
+        text<span class="token operator">:</span> <span class="token string">'标记文字'</span><span class="token punctuation">,</span> <span class="token comment">//鼠标hover在标记时展示的文字</span>
+        duration<span class="token operator">:</span> <span class="token number">8</span><span class="token punctuation">,</span> <span class="token comment">//标记段长度（以时长计算）</span>
+        style<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token comment">//标记样式</span>
+          background<span class="token operator">:</span> <span class="token string">'blue'</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        time<span class="token operator">:</span> <span class="token number">22</span><span class="token punctuation">,</span>
+        text<span class="token operator">:</span> <span class="token string">'标记文字'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        time<span class="token operator">:</span> <span class="token number">56</span><span class="token punctuation">,</span>
+        duration<span class="token operator">:</span> <span class="token number">8</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+        time<span class="token operator">:</span> <span class="token number">76</span><span class="token punctuation">,</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+
+    <span class="token keyword">const</span> videoOptions <span class="token operator">=</span> <span class="token function">reactive</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      el<span class="token operator">:</span> <span class="token keyword">null</span><span class="token punctuation">,</span>
+      url<span class="token operator">:</span> props<span class="token punctuation">.</span>url<span class="token punctuation">,</span>
+      playsinline<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      autoplay<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      width<span class="token operator">:</span> <span class="token number">600</span><span class="token punctuation">,</span>
+      height<span class="token operator">:</span> <span class="token number">337.5</span><span class="token punctuation">,</span>
+      <span class="token comment">// 设置播放器是否根据外部宽度适配</span>
+      fluid<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token comment">// 'fixWidth' | 'fixHeight' | 'auto' 设置视频根据容器宽度或高度变化</span>
+      fitVideoSize<span class="token operator">:</span> <span class="token string">'fixHeight'</span><span class="token punctuation">,</span>
+      <span class="token comment">// 默认音量</span>
+      volume<span class="token operator">:</span> <span class="token number">0.6</span><span class="token punctuation">,</span>
+      <span class="token comment">// 是否自动播放</span>
+      autoplay<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token comment">// 循环播放</span>
+      loop<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token comment">// 视频封面</span>
+      poster<span class="token operator">:</span> <span class="token string">'https://i.ytimg.com/vi/lK2ZbbQSHww/hqdefault.jpg'</span><span class="token punctuation">,</span>
+      <span class="token comment">// 视频首帧</span>
+      videoInit<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      lastPlayTime<span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token comment">//视频起播时间（单位：秒）</span>
+      lastPlayTimeHideDelay<span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token comment">//提示文字展示时长（单位：秒）</span>
+      playbackRate<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">0.5</span><span class="token punctuation">,</span> <span class="token number">0.75</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">1.5</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      defaultPlaybackRate<span class="token operator">:</span> <span class="token number">1.5</span><span class="token punctuation">,</span>
+      <span class="token comment">// 旋转</span>
+      rotate<span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      download<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token comment">// 弹幕</span>
+      danmu<span class="token operator">:</span> danmu<span class="token punctuation">,</span>
+      <span class="token comment">// 支持画中画模式</span>
+      pip<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token comment">// 如果在移动端需要横屏全屏显示</span>
+      <span class="token comment">// rotateFullscreen: true,</span>
+
+      <span class="token comment">// 小窗模式：实际上是改变 position:fixed;布局模式</span>
+      miniplayer<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      miniplayerConfig<span class="token operator">:</span> <span class="token punctuation">{</span>
+        bottom<span class="token operator">:</span> <span class="token number">200</span><span class="token punctuation">,</span>
+        right<span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+        width<span class="token operator">:</span> <span class="token number">320</span><span class="token punctuation">,</span>
+        height<span class="token operator">:</span> <span class="token number">180</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment">// 截屏</span>
+      screenShot<span class="token operator">:</span> <span class="token punctuation">{</span>
+        saveImg<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        quality<span class="token operator">:</span> <span class="token number">0.92</span><span class="token punctuation">,</span>
+        type<span class="token operator">:</span> <span class="token string">'image/png'</span><span class="token punctuation">,</span>
+        format<span class="token operator">:</span> <span class="token string">'.png'</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment">// 进度条标记</span>
+      progressDot<span class="token operator">:</span> progressDot<span class="token punctuation">.</span>value<span class="token punctuation">,</span>
+
+      <span class="token comment">// 自定义错误标记</span>
+      errorTips<span class="token operator">:</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">请&lt;span&gt;刷新&lt;/span&gt;试试</span><span class="token template-punctuation string">`</span></span><span class="token punctuation">,</span>
+
+      <span class="token comment">// 键盘快捷键</span>
+      keyShortcut<span class="token operator">:</span> <span class="token string">'on'</span><span class="token punctuation">,</span>
+      keyShortcutStep<span class="token operator">:</span> <span class="token punctuation">{</span> <span class="token comment">//设置调整步长</span>
+        currentTime<span class="token operator">:</span> <span class="token number">15</span><span class="token punctuation">,</span> <span class="token comment">//播放进度调整步长，默认10秒</span>
+        volume<span class="token operator">:</span> <span class="token number">0.2</span> <span class="token comment">//音量调整步长，默认0.1</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      <span class="token comment">// 引入插件</span>
+      controlPlugins<span class="token operator">:</span> <span class="token punctuation">[</span>
+        volume<span class="token punctuation">,</span>
+        playbackRate<span class="token punctuation">,</span>
+        makeBullet<span class="token punctuation">,</span>
+        screenShot<span class="token punctuation">,</span>
+        Keyboard
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+
+
+      allowPlayAfterEnded<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      allowSeekAfterEnded<span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token string">&quot;x5-video-player-type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;h5-page&quot;</span><span class="token punctuation">,</span>
+      <span class="token string">&quot;x5-video-player-fullscreen&quot;</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token comment">// 初始化事件</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">initEventListener</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>player<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        playerEvents<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span><span class="token parameter">playEvent</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+          player<span class="token punctuation">.</span>value<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span>playEvent<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">emit</span><span class="token punctuation">(</span>playEvent<span class="token punctuation">,</span> player<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token comment">// 注册 ready事件</span>
+          player<span class="token punctuation">.</span>value<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'ready'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'ready'</span><span class="token punctuation">,</span> player<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+          <span class="token comment">// 视频全部下载完成事件</span>
+          player<span class="token punctuation">.</span>value<span class="token punctuation">.</span><span class="token function">once</span><span class="token punctuation">(</span><span class="token string">'complete'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+            <span class="token function">emit</span><span class="token punctuation">(</span><span class="token string">'complete'</span><span class="token punctuation">,</span> player<span class="token punctuation">)</span>
+          <span class="token punctuation">}</span><span class="token punctuation">)</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">const</span> <span class="token function-variable function">initPlayer</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">options</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'options'</span><span class="token punctuation">,</span> options<span class="token punctuation">)</span>
+      <span class="token keyword">switch</span> <span class="token punctuation">(</span>videoType<span class="token punctuation">.</span>value<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token string">&quot;mp4&quot;</span><span class="token operator">:</span>
+          player<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Player</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">&quot;m3u8&quot;</span><span class="token operator">:</span>
+          player<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HlsJsPlayer</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">&quot;flv&quot;</span><span class="token operator">:</span>
+          player<span class="token punctuation">.</span>value <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FlvPlayer</span><span class="token punctuation">(</span>options<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+        <span class="token keyword">default</span><span class="token operator">:</span>
+          console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;不支持该视频格式&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">break</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token comment">// 注册播放器事件</span>
+      <span class="token function">initEventListener</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">onMounted</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 一定要在 Mounted中初始化, xgplayer依赖 占位 DOM元素</span>
+      <span class="token comment">// initPlayer()</span>
+      videoOptions<span class="token punctuation">.</span>el <span class="token operator">=</span> playerRef<span class="token punctuation">.</span>value
+      <span class="token function">initPlayer</span><span class="token punctuation">(</span>videoOptions<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+    <span class="token function">onBeforeUnmount</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token comment">// 一定要对 player进行销毁</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>player<span class="token punctuation">.</span>value <span class="token operator">&amp;&amp;</span> <span class="token keyword">typeof</span> player<span class="token punctuation">.</span>value<span class="token punctuation">.</span>destory <span class="token operator">===</span> <span class="token string">'function'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        player<span class="token punctuation">.</span>value<span class="token punctuation">.</span><span class="token function">destory</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      playerRef<span class="token punctuation">,</span>
+      player<span class="token punctuation">,</span>
+      videoType<span class="token punctuation">,</span>
+      videoOptions
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>scss<span class="token punctuation">&quot;</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"><span class="token language-css">
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br><span class="line-number">76</span><br><span class="line-number">77</span><br><span class="line-number">78</span><br><span class="line-number">79</span><br><span class="line-number">80</span><br><span class="line-number">81</span><br><span class="line-number">82</span><br><span class="line-number">83</span><br><span class="line-number">84</span><br><span class="line-number">85</span><br><span class="line-number">86</span><br><span class="line-number">87</span><br><span class="line-number">88</span><br><span class="line-number">89</span><br><span class="line-number">90</span><br><span class="line-number">91</span><br><span class="line-number">92</span><br><span class="line-number">93</span><br><span class="line-number">94</span><br><span class="line-number">95</span><br><span class="line-number">96</span><br><span class="line-number">97</span><br><span class="line-number">98</span><br><span class="line-number">99</span><br><span class="line-number">100</span><br><span class="line-number">101</span><br><span class="line-number">102</span><br><span class="line-number">103</span><br><span class="line-number">104</span><br><span class="line-number">105</span><br><span class="line-number">106</span><br><span class="line-number">107</span><br><span class="line-number">108</span><br><span class="line-number">109</span><br><span class="line-number">110</span><br><span class="line-number">111</span><br><span class="line-number">112</span><br><span class="line-number">113</span><br><span class="line-number">114</span><br><span class="line-number">115</span><br><span class="line-number">116</span><br><span class="line-number">117</span><br><span class="line-number">118</span><br><span class="line-number">119</span><br><span class="line-number">120</span><br><span class="line-number">121</span><br><span class="line-number">122</span><br><span class="line-number">123</span><br><span class="line-number">124</span><br><span class="line-number">125</span><br><span class="line-number">126</span><br><span class="line-number">127</span><br><span class="line-number">128</span><br><span class="line-number">129</span><br><span class="line-number">130</span><br><span class="line-number">131</span><br><span class="line-number">132</span><br><span class="line-number">133</span><br><span class="line-number">134</span><br><span class="line-number">135</span><br><span class="line-number">136</span><br><span class="line-number">137</span><br><span class="line-number">138</span><br><span class="line-number">139</span><br><span class="line-number">140</span><br><span class="line-number">141</span><br><span class="line-number">142</span><br><span class="line-number">143</span><br><span class="line-number">144</span><br><span class="line-number">145</span><br><span class="line-number">146</span><br><span class="line-number">147</span><br><span class="line-number">148</span><br><span class="line-number">149</span><br><span class="line-number">150</span><br><span class="line-number">151</span><br><span class="line-number">152</span><br><span class="line-number">153</span><br><span class="line-number">154</span><br><span class="line-number">155</span><br><span class="line-number">156</span><br><span class="line-number">157</span><br><span class="line-number">158</span><br><span class="line-number">159</span><br><span class="line-number">160</span><br><span class="line-number">161</span><br><span class="line-number">162</span><br><span class="line-number">163</span><br><span class="line-number">164</span><br><span class="line-number">165</span><br><span class="line-number">166</span><br><span class="line-number">167</span><br><span class="line-number">168</span><br><span class="line-number">169</span><br><span class="line-number">170</span><br><span class="line-number">171</span><br><span class="line-number">172</span><br><span class="line-number">173</span><br><span class="line-number">174</span><br><span class="line-number">175</span><br><span class="line-number">176</span><br><span class="line-number">177</span><br><span class="line-number">178</span><br><span class="line-number">179</span><br><span class="line-number">180</span><br><span class="line-number">181</span><br><span class="line-number">182</span><br><span class="line-number">183</span><br><span class="line-number">184</span><br><span class="line-number">185</span><br><span class="line-number">186</span><br><span class="line-number">187</span><br><span class="line-number">188</span><br><span class="line-number">189</span><br><span class="line-number">190</span><br><span class="line-number">191</span><br><span class="line-number">192</span><br><span class="line-number">193</span><br><span class="line-number">194</span><br><span class="line-number">195</span><br><span class="line-number">196</span><br><span class="line-number">197</span><br><span class="line-number">198</span><br><span class="line-number">199</span><br><span class="line-number">200</span><br><span class="line-number">201</span><br><span class="line-number">202</span><br><span class="line-number">203</span><br><span class="line-number">204</span><br><span class="line-number">205</span><br><span class="line-number">206</span><br><span class="line-number">207</span><br><span class="line-number">208</span><br><span class="line-number">209</span><br><span class="line-number">210</span><br><span class="line-number">211</span><br><span class="line-number">212</span><br><span class="line-number">213</span><br><span class="line-number">214</span><br><span class="line-number">215</span><br><span class="line-number">216</span><br><span class="line-number">217</span><br><span class="line-number">218</span><br><span class="line-number">219</span><br><span class="line-number">220</span><br><span class="line-number">221</span><br><span class="line-number">222</span><br><span class="line-number">223</span><br><span class="line-number">224</span><br><span class="line-number">225</span><br><span class="line-number">226</span><br><span class="line-number">227</span><br><span class="line-number">228</span><br><span class="line-number">229</span><br><span class="line-number">230</span><br><span class="line-number">231</span><br><span class="line-number">232</span><br><span class="line-number">233</span><br><span class="line-number">234</span><br><span class="line-number">235</span><br><span class="line-number">236</span><br><span class="line-number">237</span><br><span class="line-number">238</span><br><span class="line-number">239</span><br><span class="line-number">240</span><br><span class="line-number">241</span><br><span class="line-number">242</span><br></div></div><p>index.vue</p> <div class="language-vue line-numbers-mode"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>player-container<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>containerStyle<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token comment">&lt;!-- 进行其他功能的增强, 广告行为等 --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>xg-ad<span class="token punctuation">&quot;</span></span> <span class="token attr-name">v-if</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>showAd<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>slot</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>ad<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xg-ad</span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xg-ad</span><span class="token punctuation">&gt;</span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>slot</span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+
+    <span class="token comment">&lt;!-- 将配置属性传递到子组件 --&gt;</span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xg-video-player</span> <span class="token attr-name">v-bind</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>$attrs<span class="token punctuation">&quot;</span></span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>videoPlayer<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xg-video-player</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> computed<span class="token punctuation">,</span> ref <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> XgVideoPlayer <span class="token keyword">from</span> <span class="token string">'./xg-video-player.vue'</span>
+<span class="token keyword">import</span> XgAd <span class="token keyword">from</span> <span class="token string">'./xg-ad.vue'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  <span class="token comment">// 主要进行 插件的增强</span>
+  name<span class="token operator">:</span> <span class="token string">'xg-player'</span><span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span>
+    config<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> Object<span class="token punctuation">,</span>
+      <span class="token function-variable function">default</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    showAd<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> Boolean<span class="token punctuation">,</span>
+      <span class="token keyword">default</span><span class="token operator">:</span> <span class="token boolean">false</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    width<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> Number<span class="token punctuation">,</span>
+      <span class="token keyword">default</span><span class="token operator">:</span> <span class="token number">500</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  components<span class="token operator">:</span> <span class="token punctuation">{</span>
+    XgVideoPlayer<span class="token punctuation">,</span>
+    XgAd
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token parameter">props</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment">// 播放器实例，便于外部调用</span>
+    <span class="token keyword">const</span> videoPlayer <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">const</span> containerStyle <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> width <span class="token operator">=</span> <span class="token keyword">typeof</span> props<span class="token punctuation">.</span>width <span class="token operator">===</span> <span class="token string">'string'</span> <span class="token operator">?</span> props<span class="token punctuation">.</span>width <span class="token operator">:</span> props<span class="token punctuation">.</span>width <span class="token operator">+</span> <span class="token string">'px'</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        width<span class="token operator">:</span> width
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      url<span class="token operator">:</span> props<span class="token punctuation">.</span>url<span class="token punctuation">,</span>
+      containerStyle<span class="token punctuation">,</span>
+      videoPlayer<span class="token punctuation">,</span>
+      showAd<span class="token operator">:</span> props<span class="token punctuation">.</span>showAd
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>scss<span class="token punctuation">&quot;</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"><span class="token language-css">
+<span class="token selector">.player-container</span> <span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.xg-ad</span> <span class="token punctuation">{</span>
+  <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+  <span class="token property">left</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">right</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">top</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">bottom</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+  <span class="token property">width</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token property">height</span><span class="token punctuation">:</span> 100%<span class="token punctuation">;</span>
+  <span class="token property">z-index</span><span class="token punctuation">:</span> 110<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br><span class="line-number">34</span><br><span class="line-number">35</span><br><span class="line-number">36</span><br><span class="line-number">37</span><br><span class="line-number">38</span><br><span class="line-number">39</span><br><span class="line-number">40</span><br><span class="line-number">41</span><br><span class="line-number">42</span><br><span class="line-number">43</span><br><span class="line-number">44</span><br><span class="line-number">45</span><br><span class="line-number">46</span><br><span class="line-number">47</span><br><span class="line-number">48</span><br><span class="line-number">49</span><br><span class="line-number">50</span><br><span class="line-number">51</span><br><span class="line-number">52</span><br><span class="line-number">53</span><br><span class="line-number">54</span><br><span class="line-number">55</span><br><span class="line-number">56</span><br><span class="line-number">57</span><br><span class="line-number">58</span><br><span class="line-number">59</span><br><span class="line-number">60</span><br><span class="line-number">61</span><br><span class="line-number">62</span><br><span class="line-number">63</span><br><span class="line-number">64</span><br><span class="line-number">65</span><br><span class="line-number">66</span><br><span class="line-number">67</span><br><span class="line-number">68</span><br><span class="line-number">69</span><br><span class="line-number">70</span><br><span class="line-number">71</span><br><span class="line-number">72</span><br><span class="line-number">73</span><br><span class="line-number">74</span><br><span class="line-number">75</span><br></div></div><p>player-events.js</p> <div class="language-js line-numbers-mode"><pre class="language-js"><code><span class="token keyword">const</span> playerEvents <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token string">'ready'</span><span class="token punctuation">,</span>
+  <span class="token string">'complete'</span><span class="token punctuation">,</span>
+  <span class="token string">'play'</span><span class="token punctuation">,</span>
+  <span class="token string">'playing'</span><span class="token punctuation">,</span>
+  <span class="token string">'pause'</span><span class="token punctuation">,</span>
+  <span class="token string">'ended'</span><span class="token punctuation">,</span>
+  <span class="token string">'error'</span><span class="token punctuation">,</span>
+  <span class="token string">'seeking'</span><span class="token punctuation">,</span>
+  <span class="token string">'seeked'</span><span class="token punctuation">,</span>
+  <span class="token string">'timeupdate'</span><span class="token punctuation">,</span>
+  <span class="token string">'waiting'</span><span class="token punctuation">,</span>
+  <span class="token string">'canplay'</span><span class="token punctuation">,</span>
+  <span class="token string">'canplaythrough'</span><span class="token punctuation">,</span>
+  <span class="token string">'durationchange'</span><span class="token punctuation">,</span>
+  <span class="token string">'volumechange'</span><span class="token punctuation">,</span>
+  <span class="token string">'bufferedChange'</span><span class="token punctuation">,</span>
+  <span class="token string">'definitionChange'</span><span class="token punctuation">,</span>
+  <span class="token string">'playbackrateChange'</span><span class="token punctuation">,</span>
+  <span class="token string">'screenShot'</span><span class="token punctuation">,</span>
+  <span class="token string">'requestFullscreen'</span><span class="token punctuation">,</span>
+  <span class="token string">'exitCssFullscreen'</span><span class="token punctuation">,</span>
+  <span class="token string">'controlShow'</span><span class="token punctuation">,</span>
+  <span class="token string">'controlHide'</span>
+<span class="token punctuation">]</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> playerEvents
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br></div></div><p>xg-ad.vue</p> <div class="language-vue line-numbers-mode"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>default-ad<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>ad-text<span class="token punctuation">&quot;</span></span> <span class="token attr-name">:style</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>defaultAdStyle<span class="token punctuation">&quot;</span></span><span class="token punctuation">&gt;</span></span>这是 xxxx 广告的形式<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">&gt;</span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> <span class="token punctuation">{</span> computed<span class="token punctuation">,</span> reactive <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  name<span class="token operator">:</span> <span class="token string">'xg-ad'</span><span class="token punctuation">,</span>
+  props<span class="token operator">:</span> <span class="token punctuation">{</span>
+    adConfig<span class="token operator">:</span> <span class="token punctuation">{</span>
+      type<span class="token operator">:</span> Object<span class="token punctuation">,</span>
+      <span class="token function-variable function">default</span><span class="token operator">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  emits<span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'ad-close'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> defaultAdStyle <span class="token operator">=</span> <span class="token function">computed</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token punctuation">{</span>
+        fontSize<span class="token operator">:</span> <span class="token string">'18px'</span><span class="token punctuation">,</span>
+        color<span class="token operator">:</span> <span class="token string">'#fff'</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      defaultAdStyle
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>style</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>scss<span class="token punctuation">&quot;</span></span> <span class="token attr-name">scoped</span><span class="token punctuation">&gt;</span></span><span class="token style"><span class="token language-css">
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>style</span><span class="token punctuation">&gt;</span></span>
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br><span class="line-number">31</span><br><span class="line-number">32</span><br><span class="line-number">33</span><br></div></div><h2 id="使用">使用</h2> <p>App.vue</p> <div class="language-vue line-numbers-mode"><pre class="language-vue"><code><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>template</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>xg-player</span> <span class="token attr-name">ref</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>player<span class="token punctuation">&quot;</span></span> <span class="token attr-name">@canplay</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>videoCanplay<span class="token punctuation">&quot;</span></span> <span class="token attr-name">url</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&quot;</span>https://sf1-cdn-tos.huoshanstatic.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-720p.mp4<span class="token punctuation">&quot;</span></span> <span class="token attr-name">showAd</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>xg-player</span><span class="token punctuation">&gt;</span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>template</span><span class="token punctuation">&gt;</span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">&gt;</span></span><span class="token script"><span class="token language-javascript">
+<span class="token keyword">import</span> XgPlayer <span class="token keyword">from</span> <span class="token string">'./components/xg-player/index.vue'</span>
+
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+ components<span class="token operator">:</span> <span class="token punctuation">{</span>
+  XgPlayer
+ <span class="token punctuation">}</span><span class="token punctuation">,</span>
+ <span class="token function">setup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> player <span class="token operator">=</span> <span class="token function">ref</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+    <span class="token keyword">const</span> <span class="token function-variable function">videoCanplay</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">player</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'video ready'</span><span class="token punctuation">,</span> player<span class="token punctuation">)</span>
+      <span class="token comment">// player.value.play()</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">onMounted</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=&gt;</span> <span class="token punctuation">{</span>
+      console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">&quot;父级player&quot;</span><span class="token punctuation">,</span> player<span class="token punctuation">.</span>value<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      player<span class="token punctuation">,</span>
+      videoCanplay
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">&gt;</span></span>
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br><span class="line-number">27</span><br><span class="line-number">28</span><br><span class="line-number">29</span><br><span class="line-number">30</span><br></div></div></div></section> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev"><a href="/qian-duan-zu-jian/vuezu-jian/01-hua-dong-yan-zheng-ma-zu-jian.html" class="prev">
+            Vue3配合Element-Plus实现滑动验证码组件
+          </a></span> <!----></p></div> <div class="comments-wrapper"><!----></div> <ul class="side-bar sub-sidebar-wrapper" style="width:12rem;" data-v-cb1513f6><li class="level-3" data-v-cb1513f6><a href="/qian-duan-zu-jian/vuezu-jian/02-xgplayerzu-jian-feng-zhuang.html#xgplayer-西瓜播放器" class="sidebar-link reco-side-xgplayer-西瓜播放器" data-v-cb1513f6>xgplayer(西瓜播放器)</a></li><li class="level-2" data-v-cb1513f6><a href="/qian-duan-zu-jian/vuezu-jian/02-xgplayerzu-jian-feng-zhuang.html#使用" class="sidebar-link reco-side-使用" data-v-cb1513f6>使用</a></li></ul></main> <!----></div></div></div></div><div class="global-ui"><div class="back-to-ceiling" style="right:1rem;bottom:6rem;width:2.5rem;height:2.5rem;border-radius:.25rem;line-height:2.5rem;display:none;" data-v-c6073ba8 data-v-c6073ba8><svg t="1574745035067" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5404" class="icon" data-v-c6073ba8><path d="M526.60727968 10.90185116a27.675 27.675 0 0 0-29.21455937 0c-131.36607665 82.28402758-218.69155461 228.01873535-218.69155402 394.07834331a462.20625001 462.20625001 0 0 0 5.36959153 69.94390903c1.00431239 6.55289093-0.34802892 13.13561351-3.76865779 18.80351572-32.63518765 54.11355614-51.75690182 118.55860487-51.7569018 187.94566865a371.06718723 371.06718723 0 0 0 11.50484808 91.98906777c6.53300375 25.50556257 41.68394495 28.14064038 52.69160883 4.22606766 17.37162448-37.73630017 42.14135425-72.50938081 72.80769204-103.21549295 2.18761121 3.04276886 4.15646224 6.24463696 6.40373557 9.22774369a1871.4375 1871.4375 0 0 0 140.04691725 5.34970492 1866.36093723 1866.36093723 0 0 0 140.04691723-5.34970492c2.24727335-2.98310674 4.21612437-6.18497483 6.3937923-9.2178004 30.66633723 30.70611158 55.4360664 65.4791928 72.80769147 103.21549355 11.00766384 23.91457269 46.15860503 21.27949489 52.69160879-4.22606768a371.15156223 371.15156223 0 0 0 11.514792-91.99901164c0-69.36717486-19.13165746-133.82216804-51.75690182-187.92578088-3.42062944-5.66790279-4.76302748-12.26056868-3.76865837-18.80351632a462.20625001 462.20625001 0 0 0 5.36959269-69.943909c-0.00994388-166.08943902-87.32547796-311.81420293-218.6915546-394.09823051zM605.93803103 357.87693858a93.93749974 93.93749974 0 1 1-187.89594924 6.1e-7 93.93749974 93.93749974 0 0 1 187.89594924-6.1e-7z" p-id="5405" data-v-c6073ba8></path><path d="M429.50777625 765.63860547C429.50777625 803.39355007 466.44236686 1000.39046097 512.00932183 1000.39046097c45.56695499 0 82.4922232-197.00623328 82.5015456-234.7518555 0-37.75494459-36.9345906-68.35043303-82.4922232-68.34111062-45.57627738-0.00932239-82.52019037 30.59548842-82.51086798 68.34111062z" p-id="5406" data-v-c6073ba8></path></svg></div></div></div>
+    <script src="/assets/js/app.ae30e598.js" defer></script><script src="/assets/js/3.01d1cec0.js" defer></script><script src="/assets/js/1.1fe82b05.js" defer></script><script src="/assets/js/39.21b6ef89.js" defer></script>
+  </body>
+</html>
