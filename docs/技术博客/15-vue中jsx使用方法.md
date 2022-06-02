@@ -73,6 +73,8 @@ render(){
 
 2. 展开运算符展开对象传入子组件
 
+可传递所有 props(on, style, class, attrs)
+
 ```js
 render(){
   return <MyComponent {...this.defaultProps}></MyComponent>
@@ -115,7 +117,7 @@ render() {
 }
 ```
 
-3. 事件修饰符，阻止冒泡在jsx中使用
+3. on绑定组件事件 和 事件修饰符，阻止冒泡在jsx中使用
 
 - .stop: 阻止事件冒泡，在JSX中使用event.stopPropagation()来代替
 - .prevent: 阻止默认行为，在JSX中使用event.preventDefault() 来代替
@@ -144,7 +146,7 @@ render() {
 
 4. 获取事件对象
 
-获取到的事件对象都为原生的事件对象(不同与 react的事件委托机制)
+获取到的事件对象都为原生的事件对象
 
 ```js
 methods: {
@@ -200,7 +202,7 @@ render() {
 
 4. v-html和 v-text
 
-我们注意到官方 h函数中有 domProps参数定义 innerHTML属性, jsx中单独定义了属性定义
+我们 domProps参数定义 innerHTML属性, jsx中单独定义了属性定义
 innerHTML
 
 v-text
@@ -228,6 +230,15 @@ render(){
 }
 ```
 
+6. v-model的写法
+```js
+render(){
+  return (
+    <a-form-model vModel={this.keys}></a-form-model>
+  )
+}
+```
+
 ### 插槽和默认插槽在 jsx中写法
 
 插槽就是子组件中提供给父组件使用的一个占位符，插槽分为默认插槽，具名插槽和作用域插槽
@@ -246,6 +257,17 @@ scopedSlots: {
 在 vue中 $slots定义了当前组件的所有插槽属性
 
 ```js
+// 父组件传递
+render(){
+  return (
+    <>
+      <MyComponent>
+        <span>this is my slot default</span>
+      </MyComponents>
+    </>
+  )
+}
+// 子组件接收
 render(){
   return <div>{this.$slots.default}</div>
 }
@@ -254,6 +276,15 @@ render(){
 2. 具名插槽
 
 ```js
+// 父组件传递
+render(){
+  return (
+    <MyComponent>
+      <span slot="footer">this is slot footer</span>
+    </MyComponent>
+  )
+}
+// 子组件接收
 render(){
   // 使用具名插槽名称进行渲染
   return <div>{this.$slots.footer}</div>
@@ -269,13 +300,27 @@ render(){
 ```js
 {/* jsx element template */}
 <ElTable data={this.data}>
-  <ElTableColumn label="姓名" scopedSlots={{ header: ({ row }) => { return <span>姓名</span>}, default: ({row}) => { return <div style="color: red">{row.name}</div>} }}></ElTableColumn>
+  <ElTableColumn label="姓名" 
+  scopedSlots={{
+     header: ({ row }) => { return <span>姓名</span>}, 
+     default: ({row}) => { return <div style="color: red">{row.name}</div>}
+  }}>
+  </ElTableColumn>
 </ElTable>
+
+// 子组件接受
+render(){
+  return (
+    <div>
+      <span>{{this.$scopedSlots.header({ name: '张三' })}}</span>
+    </div>
+  )
+}
 ```
 
 ### 函数式组件中的用法
 
-函数式组件没有自己的 this, 所有属性直接从 context属性中获取
+函数式组件没有自己的 this, 所有属性直接从 context 属性中获取
 
 ```js
 render(h, context){
@@ -333,7 +378,7 @@ render(h){
 ```
 
 
-## 附：官网上对 render函数中 createElement属性解释
+## 附：官网上对 render函数中参数
 
 ```js
 {
